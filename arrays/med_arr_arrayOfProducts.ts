@@ -1,17 +1,19 @@
-
+import * as utils from '../utils'
 
 /**
- * medium - algoExpert - Array - Array of Products
+ * @name medium - algoExpert - Array - Array of Products
+ * @description
  * Write a function that takes a non-empty array of integers
  * and returns an array of the same length, where each element
  * in the output array is equal to the product of every other 
  * number int he input array
- * @description
+ * @example 
  * @summary
- * o(n^2) time | o(n) space
+ * 
  * @param array 
  * @returns number[]
  */
+ // o(n^2) time | o(n) space --> 4.103ms
 function arrayOfProducts_On2(array: number[]): number[]{
 
     let copyArr: number[] = [];
@@ -22,11 +24,11 @@ function arrayOfProducts_On2(array: number[]): number[]{
         copyArr.splice(i,1)
         res.push(copyArr.reduce((accum:number, nextVal: number) => accum * nextVal))
     }
-
+    console.log(res)
     return res;
   }
 
-//o(n) time | o(n) space
+//o(n) time | o(n) space --> 0.545ms
 function arrayOfProducts_On(array: number[]): number[]{
 
 let res: number[] = new Array(array.length).fill(1)
@@ -49,7 +51,7 @@ for(let i = array.length-1; i > -1; i--){
     res[i] *= rightRunningProduct; 
     rightRunningProduct *= array[i];
 }
-
+console.log(res)
 return res;
 }
 
@@ -64,6 +66,6 @@ let arrOfProdTest10: number[] = [0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 let arrOfProdTest11: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 let arrOfProdTest7: number[] = [-1, -1, -1];
 
-console.log(arrayOfProducts_On2(arrOfProdTest1))
+utils.timed(arrayOfProducts_On2, [arrOfProdTest1])
 
-console.log(arrayOfProducts_On(arrOfProdTest1))
+utils.timed(arrayOfProducts_On, [arrOfProdTest1])

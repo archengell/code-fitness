@@ -3,10 +3,12 @@ import * as BST from './a_binarySearchTreeSandbox'
 import * as BT from '../binaryTrees/a_binaryTreeSandBox'
 
 /**
- * medium - BST - Neet150 - Kth Smallest ELement in BST
+ * @name medium - BST - Neet150 - Kth Smallest ELement in BST
+ * @access https://leetcode.com/problems/kth-smallest-element-in-a-bst/submissions/
  * @description
  * Given the root of a BST, and an integer K, return the Kth smallest 
  * value ( 1-indexed ) of all the values of the nodes in the tree.
+ * @example 
  * @summary
  * - perform in-order traverse which is basically a sorted array
  * - then return indexed value by k - 1
@@ -30,16 +32,16 @@ function inOrderTraverse(node: BT.IBinaryTree, arr: number[] = []){
     return arr;
 }
 
-function kthSmallest_(root: BT.IBinaryTree | null, k: number): number {
+// function kthSmallest_(root: BT.IBinaryTree | null, k: number): number {
 
-    let inOrder: number[] = BST.inOrderTraversal(root)
-    let filtered: number[] = [];
-    for(let elem of inOrder){
-        if(elem) filtered.push(elem)
-    }
-    let res: number = filtered[k-1] || -1
-    return res
-};
+//     let inOrder: number[] = BST.inOrderTraversal(root)
+//     let filtered: number[] = [];
+//     for(let elem of inOrder){
+//         if(elem) filtered.push(elem)
+//     }
+//     let res: number = filtered[k-1] || -1
+//     return res
+// };
 
 let kthSmallElem1 = {
     'root': [3,1,4,null,2],

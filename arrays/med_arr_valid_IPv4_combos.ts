@@ -1,4 +1,5 @@
 import { isIPv4 } from './med_arr_valid_IPv4v6_Address_leet_uber';
+import * as utils from '../utils'
 
 function validIPAddresses(string: string): string[] {
     let validIPv4: string[]= [];
@@ -15,7 +16,7 @@ function validIPAddresses(string: string): string[] {
             }
         };
     };
-    // console.log(validIPv4);
+    console.log(validIPv4);
     return validIPv4;
   }
 
@@ -47,13 +48,14 @@ function validIPAddresses(string: string): string[] {
 //     return true;
 // }
 
- let validIPAddressTests: {[key: string]: string} = {
-     'test1': '1921680',
-     'test2': '3700100',
-     'test3': '9743',
-     'test4': '97430',
-     'test5': '997430'
- }
+let validIPAddressTests: {[key: string]: string} = {
+    'test1': '1921680',
+    'test2': '3700100',
+    'test3': '9743',
+    'test4': '97430',
+    'test5': '997430'
+}
 
- validIPAddresses(validIPAddressTests['test1'])
+
+utils.timed(validIPAddresses, [validIPAddressTests ['test1']])
 
