@@ -1,0 +1,2 @@
+
+minimumCharactersForWords(minCharForWords5)
