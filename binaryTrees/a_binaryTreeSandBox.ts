@@ -1,15 +1,15 @@
-export interface IBinaryTree {
+export interface IBT {
     value: number | null;
-    left: IBinaryTree | null;
-    right: IBinaryTree | null;
+    left: IBT | null;
+    right: IBT | null;
     //protected|private fields cannot appear in types/interfaces
 }
 
-export class BinaryTreez {
-    public left: BinaryTreez | null;
-    public right: BinaryTreez | null;
+export class BT {
+    public left: BT | null;
+    public right: BT | null;
 
-    constructor(public value: number | null, left?: BinaryTreez | null, right?: BinaryTreez | null ) {
+    constructor(public value: number | null, left?: BT | null, right?: BT | null ) {
         this.value = value === undefined ? null : value;
         this.left = left === undefined ? null : left;
         this.right = right === undefined ? null : right;
@@ -56,7 +56,7 @@ export class BinaryTreez {
      */
     public createBinaryTreeFromNumArr(values: number[], i: number = 0){
         if(i < values.length){
-            let node: BinaryTreez = new BinaryTreez(values[i])
+            let node: IBT = new BT(values[i])
             node.left = this.createBinaryTreeFromNumArr(values, 2 * i + 1); // 1 3 5 7 ...
             node.right = this.createBinaryTreeFromNumArr(values, 2 * i + 2); // 2 4 6 8 ...
             return node
@@ -74,7 +74,7 @@ export class BinaryTreez {
      * @description gets node heights of BT/BST
      * @param node starts as root, then subsequent tree nodes
      */
-    public getNodeHeight(node: IBinaryTree){
+    public getNodeHeight(node: IBT){
         if(node === null) {
             return -1;
         } else if (node.left === null && node.right === null){
@@ -99,13 +99,13 @@ export class BinaryTreez {
      * /\       ----------/\
      * 8,9      ----------9,8
      */
-    public invertBT(node: IBinaryTree = this) {
+    public invertBT(node: IBT = this) {
         //termination
         //return if node == null
         if(!node) return; 
 
         //base
-        let tempL: IBinaryTree | null = node.left
+        let tempL: IBT | null = node.left
         node.left = node.right
         node.right = tempL  
 
@@ -119,13 +119,13 @@ export class BinaryTreez {
     /**
      * @description AlgoExpert | Medium | BT Diameter
      * @description ???
-     * @param {IBinaryTree} node starts as root, then subsequent tree nodes
+     * @param {IBT} node starts as root, then subsequent tree nodes
      * @returns {number} diameter 
      * @summary ???
      */
-    public btDiameter(node: IBinaryTree = this): number {
+    public btDiameter(node: IBT = this): number {
         let diameter: number = 0;
-        let getHeight = (node:IBinaryTree) => {
+        let getHeight = (node: IBT) => {
             if(!node) return 0;
             let left: number = getHeight(node.left);
             let right: number = getHeight(node.right);
@@ -145,7 +145,7 @@ export class BinaryTreez {
      * @returns tree
      * @summary why is this not working??! figure this out tonight... 
      */
-    public printTree(node: IBinaryTree = this, spaceCount = 0, label ='* '){    
+    public printTree(node: IBT = this, spaceCount = 0, label ='* '){    
         if(node === null) return console.log(`${' -'.repeat(spaceCount)}${label} [0] null`);
 
         console.log(

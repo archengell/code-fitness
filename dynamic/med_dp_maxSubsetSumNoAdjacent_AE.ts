@@ -1,3 +1,8 @@
+/**
+ * 
+ * @param array 
+ * @returns 
+ */
 function maxNonContiguousSubSet(array: number[]) {
     
     let oneIdxAway: number = 0;

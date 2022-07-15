@@ -20,22 +20,22 @@ import * as utils from '../utils'
  * @param arrayTwo 
  * @returns 
  */
-function sameBSTs(arrayOne: number[], arrayTwo: number[]) {
+function sameBSTs(arrayOne: number[], arrayTwo: number[]): boolean {
 
     let res: boolean = true;
     // verbose edition to track output against tests, o/w just return false/true
     if(arrayOne.length !== arrayTwo.length) {
         res = false 
-        console.log(res)
+        // console.log(res)
         return res
     }
     if(arrayOne[0] !== arrayTwo[0]){
         res = false 
-        console.log(res)
+        // console.log(res)
         return res
     }
     if(arrayOne.length === 0 && arrayTwo.length === 0){
-        console.log(res)
+        // console.log(res)
         return res
     }
 
@@ -113,4 +113,4 @@ let sameBST_tests: {[key: string]: sameBST} = {
 
 let { arrayOne, arrayTwo } = sameBST_tests['test8'];
 
-utils.timed(sameBSTs, [arrayOne, arrayTwo])
+utils.timed('sameBSTs', sameBSTs, [arrayOne, arrayTwo])

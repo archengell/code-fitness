@@ -25,10 +25,10 @@ export function swap(left: number, right: number, arr: number[]){
  * @param args
  * @returns 
  */
-export function timed(callback, args) {
+export function timed(note: string, callback: any, args: any[] ) {
     
   console.time()
-  callback.apply(this, args)
+  console.log(`${note}`, callback.apply(this, args))
   console.timeEnd()
 }
 
@@ -94,3 +94,9 @@ export function removeDuplicateArrays(nestedNumArr: number[][]): number[][]{
   return res
 }
 
+
+export function isNumberArr (value: unknown): value is number[] {
+  if(!Array.isArray(value)) {return false}
+  if(value.some((elem: any) => elem !== 'number')){return false}
+  return true;
+}

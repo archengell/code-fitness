@@ -1,6 +1,14 @@
 import { isIPv4 } from './med_arr_valid_IPv4v6_Address_leet_uber';
 import * as utils from '../utils'
 
+/**
+ * @name
+ * @description
+ * @example
+ * @summary
+ * @param string 
+ * @returns 
+ */
 function validIPAddresses(string: string): string[] {
     let validIPv4: string[]= [];
     let IPv4Parts: string[] = new Array(4).fill('');

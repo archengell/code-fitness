@@ -27,12 +27,12 @@ function binaryTreeDiameter(root: CreateBTNode | null): number {
      * @param root 
      * @returns 
      */
-    let getHeight = (root: CreateBTNode | null): number => {
+    const getHeight = (root: CreateBTNode | null): number => {
         if(!root) return 0;
         let left: number = getHeight(root.left);
         let right: number = getHeight(root.right);
         diameter = Math.max(diameter, left + right);
-        console.log(`node.value: ${root.value}, leftHt: ${left}, rightHt: ${right}, diameter: ${diameter}`)
+        // console.log(`node.value: ${root.value}, leftHt: ${left}, rightHt: ${right}, diameter: ${diameter}`)
         return 1 + Math.max(left, right);
     }
     getHeight(root)
