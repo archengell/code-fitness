@@ -101,25 +101,24 @@ export class MinHeap<T> {
         // let pqElemArr = arr as iPQElement<T>[]
         let resArr: (number | iPQElement<T>)[];
 
-
-
         try{
             if(utils.isNumberArr(arr)) {
-                console.log('gets here')
-                resArr = this.convertNumArrToPriorityQueueArr(arr as number[])
+                console.log('A')
+                this.heap = this.convertNumArrToPriorityQueueArr(arr as number[])
             }else{
-                resArr = arr
+                console.log('B')
+                this.heap = arr as iPQElement<T>[]
             }
         }catch(e){
             console.log(`error: ${e}`)
         }
 
-        console.log(resArr)
-
-        let btmLeftMostParentIdx: number = Math.floor((resArr.length - 2) / 2)
+        console.log('before', this.heap)
+        let btmLeftMostParentIdx: number = Math.floor((this.heap.length - 2) / 2)
         for(let currentIdx = btmLeftMostParentIdx; currentIdx >= 0; currentIdx--){
             this.bubbleDown(currentIdx)
         }
+        console.log('after', this.heap)
         return this.heap
     }
 
@@ -155,12 +154,20 @@ export class MinHeap<T> {
         let leftChild: number = this.leftChildIdx(index);
         let rightChild: number = this.rightChildIdx(index);
         //loop while child nodes exist
-        while(leftChild){
+        while(this.hasLeftChild(index)){
             //compare child nodes, get smaller priority value of left and right
-            let smallerChild = rightChild && rightChild['priority'] < leftChild['priority'] ? rightChild : leftChild;
-            if(this.heap[smallerChild]['priority'] < this.heap[index]['priority']){
-                this.swapIdx(smallerChild, index);
-                this.swapPriority(smallerChild, index)
+
+            let smallerChildIdx: number = this.hasRightChild(index) && 
+                this.heap[rightChild]['priority'] < this.heap[leftChild]['priority'] ? 
+                rightChild : leftChild;
+            // console.log('smallerChild', this.heap[smallerChildIdx]['priority'])
+            // console.log('index', this.heap[index]['priority'])
+            if(this.heap[smallerChildIdx]['priority'] < this.heap[index]['priority']){
+                this.swapIdx(smallerChildIdx, index);
+                // this.swapPriority(smallerChildIdx, index)
+                // index = smallerChildIdx
+                // this.heap[index]['priority'] = this.heap[smallerChildIdx]['priority']
+                // leftChild = this.leftChildIdx(index)            
             }else{
                 return
             }
@@ -221,21 +228,22 @@ export class MinHeap<T> {
 
 let heapTest: number[] = [48, 12, 24, 7, 8, -5, 24, 391, 24, 56, 2, 6, 8, 41]
 let heapTest1: iPQElement<shearwall>[] = [
-    {'priority': 48, 'value': {'type': 'D', 'length':10, 'force': 456}},
-    {'priority': 12, 'value': {'type': 'D', 'length':10, 'force': 456}},
-    {'priority': 24, 'value': {'type': 'D', 'length':10, 'force': 456}},
-    {'priority': 7, 'value': {'type': 'D', 'length':10, 'force': 456}},
-    {'priority': 8, 'value': {'type': 'D', 'length':10, 'force': 456}},
-    {'priority': -5, 'value': {'type': 'D', 'length':10, 'force': 456}},
-    {'priority': 24, 'value': {'type': 'D', 'length':10, 'force': 456}},
-    {'priority': 391, 'value': {'type': 'D', 'length':10, 'force': 456}},
-    {'priority': 24, 'value': {'type': 'D', 'length':10, 'force': 456}},
-    {'priority': 56, 'value': {'type': 'D', 'length':10, 'force': 456}},
-    {'priority': 2, 'value': {'type': 'D', 'length':10, 'force': 456}},
-    {'priority': 6, 'value': {'type': 'D', 'length':10, 'force': 456}},
-    {'priority': 8, 'value': {'type': 'D', 'length':10, 'force': 456}},
-    {'priority': 41, 'value': {'type': 'D', 'length':10, 'force': 456}}
+    {'priority': 48, 'value': {'type': 'U', 'length':48, 'force': 999}},
+    {'priority': 12, 'value': {'type': 'G', 'length':12, 'force': 875}},
+    {'priority': 24, 'value': {'type': 'W', 'length':24, 'force': 456}},
+    {'priority': 7, 'value': {'type': 'D', 'length':7, 'force': 767}},
+    {'priority': 8, 'value': {'type': 'E', 'length':8, 'force': 456}},
+    {'priority': -5, 'value': {'type': 'R', 'length':-5, 'force': 456}},
+    {'priority': 24, 'value': {'type': 'D', 'length':24, 'force': 564}},
+    {'priority': 391, 'value': {'type': 'T', 'length':391, 'force': 888}},
+    {'priority': 24, 'value': {'type': 'D', 'length':24, 'force': 676}},
+    {'priority': 56, 'value': {'type': 'P', 'length':56, 'force': 567}},
+    {'priority': 2, 'value': {'type': 'H', 'length':2, 'force': 765}},
+    {'priority': 6, 'value': {'type': 'S', 'length':6, 'force': 456}},
+    {'priority': 8, 'value': {'type': 'D', 'length':8, 'force': 777}},
+    {'priority': 41, 'value': {'type': 'Z', 'length':41, 'force': 657}}
     ]
-let heap = new MinHeap<shearwall>().buildHeap(heapTest1)
+
+let heap = new MinHeap<null>().buildHeap(heapTest)
 
 // utils.timed('heap', heap.buildHeap, [heapTest])

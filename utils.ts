@@ -95,8 +95,8 @@ export function removeDuplicateArrays(nestedNumArr: number[][]): number[][]{
 }
 
 
-export function isNumberArr (value: unknown): value is number[] {
+export function isNumberArr (value: any): boolean {
   if(!Array.isArray(value)) {return false}
-  if(value.some((elem: any) => elem !== 'number')){return false}
+  if(value.some((elem: any) => typeof(elem) !== 'number')) {return false}
   return true;
 }

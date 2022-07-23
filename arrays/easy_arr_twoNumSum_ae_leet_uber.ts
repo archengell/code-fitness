@@ -15,8 +15,6 @@ import * as utils from '../utils'
  * the target sum.  
  * 
  * Note: you can add the same number twice as long as they're different indices.
- * 
- *  
  *
  * @example
  * Sample Input: 
@@ -28,6 +26,24 @@ import * as utils from '../utils'
  * @param nums 
  * @param target 
  * @returns numbers[] with two integers that much the criteria.
+ * @summary
+ * FOR O(N) TIME & SPACE SLN: 
+ * 1. create cache map
+ * 2. loop through array 
+ * 3. calc diff = target - num[i]
+ * 4. check if cache has diff => map.has(num[i])
+ * 5. return [num[i], i]
+ * 6. else store diff in cache => map.set(diff, i)
+ * 
+ * FOR O(N-LOGN)-TIME & O(1)-SPACE (*Note: approach used for Three/FourSum):
+ * 1. set left, right = 0, arr.length-1
+ * 2. sort arr
+ * 3. while(left < right) 
+ * 4. --- calc sum = arr[left] + arr[right]
+ * 5. --- if sum === target  return [arr[left], arr[right]]
+ * 6. --- else if sum < target => ++left
+ * 7. --- else if sum > target => --right
+ * 8. return [] / null / -1 
  */
 
 // time: O(n) | space O(1) : 544 ms 
@@ -59,8 +75,11 @@ function twoNumSum_slow(nums: number[], target: number){
 
 
 // time: O(n) | space O(1) : fastest!! 69 ms 94.5% faster
+// Approach: One-pass Hash Table w/ OBJECT
 function twoNumSum_fastest_obj(nums: number[], target: number){
+
     let map: {[key:number]: number} = {}
+
     for(let i=0; i<nums.length; i++){
         if(map.hasOwnProperty(nums[i])){
             return [i, map[nums[i]]]
@@ -68,20 +87,25 @@ function twoNumSum_fastest_obj(nums: number[], target: number){
         map[target-nums[i]] = i
     }
 }
-// time: O(n) | space O(1) : fast using map in lieu of object...
-function twoNumSum_fastest_map(nums: number[], target: number){
 
+// time: O(n) | space O(1) : fast using map in lieu of object...
+// Approach: One-pass Hash Table w/ MAP 
+function twoNumSum_fastest_map(nums: number[], target: number){
+    // create cache
     let map = new Map<number, number>();
-    
+    // loop thru nums array
     for(let i = 0; i < nums.length; i++){
         let diff: number = target - nums[i];
         if(map.has(nums[i])){
-            console.log([map.get(nums[i]), i])
             return [map.get(nums[i]), i]
         } 
+        // store diff w/ i (placeholder)
+        // can't use set(), doesn't have map.get()
         map.set(diff, i)
     }
 }
+
+
 interface ItwoNumSumInputs {
     'array': number[],
     'targetSum': number
@@ -118,4 +142,4 @@ let testCases: {[key: string] : ItwoNumSumInputs } = {
 
 let { array, targetSum } = testCases['test6']
 
-utils.timed(twoNumSum_fastest_map, [array, targetSum])
+utils.timed('res', twoNumSum_fastest_map, [array, targetSum])

@@ -1,35 +1,39 @@
 import * as typing from '../typing'
 
+interface iPriorityQueue<T> {
+    add(priority: number, item: T): void
+    peek(): T
+    pop(): T
+    size(): number
+    isEmpty(): boolean
+  }
 
-/**
- * @description
- * @param   
- * @raises
- */
-export class Queue <T> {
-    constructor(public input?: T[]){
-        this.input = input || new Array<T>();
-    }
+export const priorityQueue = <T>(): iPriorityQueue<T> => {
 
-    public add(elem: T){
-        this.input.push(elem)
-        // console.log(`added ${elem} ==> ${this.input}`)
-    }
+    const data: [number, T][] = []
 
-    public remove(){
-        // console.log(`removing ${this.input[0]}`)
-        return this.input.shift()
-        // console.log(`arr is now ${this.input}`)
-    }
+    return {
 
-    public length(){
-        return this.input.length
+        add: (priority, value) => {
+            if(data.length === 0){
+                data.push([priority, value])
+                return
+            }
+
+            for(let i = 0; i < data.length; i++){
+                if(i === data.length - 1){
+                    data.push([priority, value])
+                    return
+                }
+                if(data[i][0] > priority){
+                    data.splice(i, 0, [priority, value])
+                    return
+                }
+            }
+        }
+
+        peek: () =>{
+
+        }
     }
 }
-
-
-// let res = new Queue<number>([1, 2, 3, 4]);
-// res.add(6)
-// res.add(7)
-// res.remove()
-// res.add(8)

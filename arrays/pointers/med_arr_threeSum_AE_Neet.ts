@@ -7,20 +7,19 @@ interface IThreeSumInput {
 }
 
 /**
- * medium - array_pointer - algoExpert/Neet - three sum
+ * @name threeSum medium - array_pointer - algoExpert/Neet
  * @description
  * Given an integer array nums, return all the triplets
  * [ nums[i], nums[j], nums[k]] such that i != j, j != k,
  * k != i, and nums[i] + nums[j] + nums[k] === 0.
- * 
  * *** SLN set must not contain duplicate triplets! ***
- * @summary
- * 1. sort, then iterate thru array
- * 2. set up while-loop pointer each end simm twoSum2 (sliding window)
- * 3. push() 3-num array to res[][] when cond. met
  * @param nums 
  * @returns 
  * @raises
+ * @summary
+ * 1. sort, then iterate thru array
+ * 2. set up while-loop w/ pointer each end simm twoSum2 (sliding window)
+ * 3. push() 3-num array to res[][] when cond. met
  */
 // o(n2) time | o(n) space -> 3.43 ms
 function threeSum(nums: number[], targetSum: number = 0): number[][] {
@@ -29,15 +28,14 @@ function threeSum(nums: number[], targetSum: number = 0): number[][] {
     let sum: number;
     let key: string;
     let cache = new Map<string, number>();
-    nums.sort((a: number, b: number) => a - b);
+    nums.sort((a: number, b: number) => a - b); // 1
 
-    for(let [idx, elem] of nums.entries()){ // or for(let idx=0;idx<nums.length;idx++)
-
+    for(let idx = 0;idx < nums.length; idx++){ // 2
         let left: number = idx + 1
         let right: number = nums.length - 1
 
             while(left >= 0 && right < nums.length && left < right && 
-                left !== right){
+                left !== right){ // (sliding window)
                     
                     sum = nums[idx] + nums[left] + nums[right];
                     // console.log(`idx: ${idx} L: ${left} R: ${right}`)
@@ -85,11 +83,6 @@ let threeSumTest1: IThreeSumInput = {
     "threeSumArr": [-1,0,1,2,-1,-4],
     "targetSum": 0
 }//[ [ -1, -1, 2 ], [ -1, 0, 1 ] ]
-let threeSumTest2: number[] = []; //[]
-let threeSumTest3: number[] = [0];
-let threeSumTest4: number[] = [0, 0, 0, 0];
-let threeSumTest5: number[] = [12, 3, 1, 2, -6, 5, -8, 6]
-
 let threeSumTest6: IThreeSumInput = {
     "threeSumArr": [12, 3, 1, 2, -6, 5, 0, -8, -1, 6],
     "targetSum": 0
@@ -113,4 +106,4 @@ let threeSumTest11: IThreeSumInput = {
 
 let {threeSumArr, targetSum} = threeSumTest1;
 
-utils.timed(threeSum_brute_On3, [threeSumArr, targetSum])
+utils.timed('res', threeSum_brute_On3, [threeSumArr, targetSum])

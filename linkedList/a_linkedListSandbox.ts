@@ -272,6 +272,8 @@ export class LinkedList<T>  {
         node && console.log(`id: ${node.id} - ${JSON.stringify(node.data,null)}`)
         node && this.traverse(node.next)
     }
+
+    
 }
 
 
