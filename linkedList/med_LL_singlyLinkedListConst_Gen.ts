@@ -1,7 +1,7 @@
 import { cursorTo } from 'readline';
 import { createSecureContext } from 'tls';
 import * as utils from '../utils';
-import * as LinkedList from './a_linkedListClasses';
+import * as LinkedList from './a_linkedListNodeClasses';
 
 export class SinglyLinkedList {
     head: LinkedList.SLL_Node | null;

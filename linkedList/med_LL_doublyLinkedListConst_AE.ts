@@ -1,6 +1,6 @@
 import * as utils from '../utils'
 // import { LinkedList } from './a_linkedListSandbox';
-import * as LinkedList from './a_linkedListClasses'
+import * as LinkedList from './a_linkedListNodeClasses'
 
   
   // Feel free to add new properties and methods to the class.
