@@ -1,12 +1,13 @@
 import { SLL_Node, DLL_Node } from './a_linkedListClasses'
 
 /**
- * @name getCycleInSinglyLinkedList_On_Space
+ * @name getCycleInSinglyLinkedList_On_Space  hard/easy - AE/Neet 
+ * @access leet: https://leetcode.com/problems/linked-list-cycle/
  * @description
  * @example
  * @param head 
  * @returns
- * @summary used two pointer method
+ * @summary used two pointer method: Floyd's Cycle Finding Algorithm
  * o(n) time / o(1) space
  */
  export function getCycleInSinglyLinkedList_o1_space(head: SLL_Node) {
@@ -14,6 +15,7 @@ import { SLL_Node, DLL_Node } from './a_linkedListClasses'
   // set up start for each pointer
   let oneStep: SLL_Node | null = this.head;
   let twoStep: SLL_Node | null = this.head;
+  
 
   //traverse linked list
   while(twoStep &&  twoStep.next){
@@ -25,10 +27,12 @@ import { SLL_Node, DLL_Node } from './a_linkedListClasses'
         oneStep = oneStep.next;
         twoStep = twoStep.next;
       }
+      // hasCycle?: oneStep <--> true
       return oneStep
     }
   }
-  return new Error('no cycle detected')
+  // hasCycle?: null <--> false
+  return null
 }
 
  /** 
@@ -44,10 +48,12 @@ export function getCycleInSinglyLinkedList_On_Space(head: SLL_Node) {
 
   while(node){
     
+    // hasCycle?: node <--> true
     if(set.has(node)) return node
     
     set.add(node)
     node = node.next
   }
-  return new Error('no cycle detected')
+  // hasCycle?: null <--> false
+  return null 
 }

@@ -9,7 +9,7 @@ function maxProfit(prices: number[]): number {
     let min:number = Infinity;
     let res: number = 0;
 
-    for(let i=0; i<prices.length; i++){
+    for(let i=0; i < prices.length; i++){
         min = Math.min(min, prices[i])
         res = Math.max(res, prices[i] - min)
     }

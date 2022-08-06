@@ -4,7 +4,8 @@ interface ISmallDiff {
 }
 
 /**
- * medium - arrays - algoExpert - Smallest Difference
+ * @twoPointer 
+ * @name SmallestDifference medium - arrays - algoExpert 
  * @description
  * Write a function that takes in two non-empty arrays of integers, 
  * finds the pair of numbers ( one from each array ) whose absolute 

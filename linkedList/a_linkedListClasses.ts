@@ -10,8 +10,8 @@ export class SLL_Node {
   
 export class DLL_Node {
   value: number;
-  prev: Node | null;
-  next: Node | null;
+  prev: DLL_Node | null;
+  next: DLL_Node | null;
 
   constructor(value: number) {
     this.value = value;

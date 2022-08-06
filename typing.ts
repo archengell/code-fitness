@@ -19,3 +19,5 @@ export type strNumObj = {
 export type strNumArrObj = { 
     [key:string] : string[] | number[] | strNumArrObj
 }
+
+export type func = Function;

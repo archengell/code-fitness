@@ -1,25 +1,25 @@
-import { notDeepEqual } from 'assert';
 import * as utils from '../utils'
-import { LinkedList } from './a_linkedListSandbox';
-import { Node } from './a_linkedListClasses'
+// import { LinkedList } from './a_linkedListSandbox';
+import * as LinkedList from './a_linkedListClasses'
 
   
   // Feel free to add new properties and methods to the class.
   export class DoublyLinkedList {
-    head: Node | null;
-    tail: Node | null;
+    head: LinkedList.DLL_Node | null;
+    tail: LinkedList.DLL_Node | null;
     length: number;
   
     constructor(arr: number[]) {
       this.head = null;
       this.tail = null;
       this.length = 0;
-
-      Array.from(arr, (item: number) => this.setHead(new Node(item)))
+    
+      // simm. to iteration using Array.push()
+      arr.map((item: number) => this.setHead(new LinkedList.DLL_Node(item))) 
     }
   
     // o(1) time + space
-    setHead(node: Node) {
+    setHead(node: LinkedList.DLL_Node): void {
 
         if(this.head === null){
         this.head = node;
@@ -40,7 +40,7 @@ import { Node } from './a_linkedListClasses'
      * 1. check if list is empty
      * 2. increment linked list length
      */
-    setTail(node: Node) {  
+    setTail(node: LinkedList.DLL_Node): void {  
 
         if(this.tail === null){ // 1
             this.setHead(node)
@@ -51,21 +51,21 @@ import { Node } from './a_linkedListClasses'
     }
 
     // o(n) time | o(1) space
-    find(node: Node): Node | undefined {
+    find(node: LinkedList.DLL_Node): LinkedList.DLL_Node | undefined {
 
         if(this.length === 0) return;
 
-        let nodeElem: Node | null = this.head
+        let nodeElem: LinkedList.DLL_Node | null = this.head
 
         while(nodeElem !== null){
-            let item: Node = nodeElem.next;
+            let item: LinkedList.DLL_Node = nodeElem.next;
             if(item.value === node.value) return node
         }
         return node
     }
   
     // o(1) time & space
-    insertBefore(node: Node = null, nodeToInsert: Node) {
+    insertBefore(node: LinkedList.DLL_Node = null, nodeToInsert: LinkedList.DLL_Node) {
 
         if(nodeToInsert === this.head && nodeToInsert === this.tail) return;
         this.remove(nodeToInsert);
@@ -80,7 +80,7 @@ import { Node } from './a_linkedListClasses'
     }
   
     // o(1) time & space
-    insertAfter(node: Node = null, nodeToInsert: Node) {
+    insertAfter(node: LinkedList.DLL_Node = null, nodeToInsert: LinkedList.DLL_Node) {
 
         if(nodeToInsert === this.head && nodeToInsert === this.tail) return;
         this.remove(nodeToInsert)
@@ -95,7 +95,7 @@ import { Node } from './a_linkedListClasses'
     }
   
     // o(p) time & o(1) space
-    insertAtPosition(position: number, nodeToInsert: Node): void {
+    insertAtPosition(position: number, nodeToInsert: LinkedList.DLL_Node): void {
 
         if(position === 0){
             this.setHead(nodeToInsert);
@@ -105,7 +105,7 @@ import { Node } from './a_linkedListClasses'
             this.setTail(nodeToInsert);
             return; 
         } 
-        let node: Node | null = this.head;
+        let node: LinkedList.DLL_Node | null = this.head;
         let currentPosition: number = 0;
         while(node !== null && currentPosition !== position) node = node.next
         if(node !== null){
@@ -131,17 +131,18 @@ import { Node } from './a_linkedListClasses'
      */
     removeNodesWithValue(value: number) {
         if(this.length === 0) return;
-        let node: Node | null = this.head;
+        let node: LinkedList.DLL_Node | null = this.head;
         while(node !== null){
-            let removedNode: Node = node; // 1
+            let removedNode: LinkedList.DLL_Node = node; // 1
             node = node.next; // 2
             if(removedNode.value === value) this.remove(removedNode) // 3
             console.log(`node with value: ${removedNode.value} has been removed`)
             --this.length;
         } 
     }
-  
-    remove(node: Node) {
+    
+    //o(1) time | o(1) space
+    remove(node: LinkedList.DLL_Node) {
         if(node === this.head) this.head = this.head.next;
         if(node === this.tail) this.tail = this.tail.prev;
         this.removeNodeConnections(node);
@@ -149,7 +150,7 @@ import { Node } from './a_linkedListClasses'
     }
 
     // o(1) time | o(1) space
-    removeNodeConnections(node: Node): void { 
+    removeNodeConnections(node: LinkedList.DLL_Node): void { 
         if(node.prev !== null) node.prev.next = node.next;
         if(node.next !== null) node.next.prev = node.prev;
         node.prev = null;
@@ -157,9 +158,13 @@ import { Node } from './a_linkedListClasses'
     }
 
     // o(n) time | o(1) space 
-    traverse(node: Node | null = this.head): void {
-        node && console.log(`value: ${node.value}`)
-        node && this.traverse(node.next)
+    traverse(): void {
+        let curr: LinkedList.DLL_Node | null = this.head;
+        while(curr !== null) {
+            console.log(`value: ${curr.value} prev: ${curr.prev} next: ${curr.next}`);
+            curr = curr.next;
+        }
+ 
     }
 
     // 
@@ -173,7 +178,7 @@ import { Node } from './a_linkedListClasses'
      * 2. traverse list until node w/ value is found
      */
     containsNodeWithValue(value: number): boolean {
-        let node: Node | null = this.head; // 1
+        let node: LinkedList.DLL_Node | null = this.head; // 1
         while(node !== null && node.value !== value) node = node.next;
         return node !== null;
     }
@@ -193,5 +198,5 @@ import { Node } from './a_linkedListClasses'
 
 let linkedListArr: number[] = [5, 4, 3, 2, 1, 4];
 
-let linkedList = new DoublyLinkedList(linkedListArr)
-linkedList.traverse()
+let linkedList = new DoublyLinkedList(linkedListArr);
+linkedList.traverse();

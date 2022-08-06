@@ -1,3 +1,4 @@
+import * as typing from './typing'
 
 export function swapWithSplice(targetIdx:number, sourceIdx:number, array:number[]){
     let removed:number[] = array.splice(sourceIdx,1);
@@ -20,13 +21,15 @@ export function swap(left: number, right: number, arr: number[]){
 
 /**
  * @description wrapper to display time performance of func
- * @summary
  * @param callback 
  * @param args
- * @returns 
+ * @returns output of function
+ * @summary
+ * 
  */
-export function timed(note: string, callback: any, args: any[] ) {
-    
+
+export function timed<U>(note: string, callback: typing.func , args: U[] ) {
+  
   console.time()
   console.log(`${note}`, callback.apply(this, args))
   console.timeEnd()
