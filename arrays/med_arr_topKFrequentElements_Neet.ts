@@ -1,10 +1,12 @@
+import * as utils from '../utils'
 
 /**
- * medium - array - Neet/Leet - top K-Frequent Elements
+ * @name medium - array - Neet/Leet - top K-Frequent Elements
  * @description
  * Given an interger array [nums] and an integer, K, return 
  * the K most frequent elements.  You may return the answer
  * in any order. 
+ * @example 
  * @summary
  * time => O(n) space: O(n)
  * @param nums 
@@ -12,6 +14,11 @@
  * @returns 
  */
 function topKFrequent(nums: number[], k: number): number[] {
+
+    if(!k){
+        console.error('K needs to be > 0')
+        return
+    } 
 
     let cache: {[key:number]: number} = {}
     let res: number[] = [];
@@ -72,11 +79,10 @@ let kFreElemsTest3: IkFreqElems = {
 }// [1,2]
 let kFreElemsTest4: IkFreqElems = {
     'numArr': [4,1,-1,2,-1,2,3],
-    'k': 2
+    'k': 0
 }// [-1,2]
 
 
 let {numArr, k} = kFreElemsTest4;
-console.time()
-console.log(topKFrequent(numArr, k))
-console.timeEnd()
+
+utils.timed('res', topKFrequent, [numArr, k])

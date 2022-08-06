@@ -1,5 +1,5 @@
 import * as utils from '../utils'
-import * as LinkedList from './a_linkedListClasses'
+import * as LinkedList from './a_linkedListNodeClasses'
 
 /**
  * @name LC_21_mergeLinkedLists_Recursively medium => algoExpert(hard) / LC#21(easy)

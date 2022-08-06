@@ -1,9 +1,9 @@
 import * as utils from '../utils'
-import * as LinkedList from './a_linkedListClasses'
+import * as LinkedList from './a_linkedListNodeClasses'
 import { SinglyLinkedList } from './med_LL_singlyLinkedListConst_Gen'
 
 /**
- * @name sumOfLinkedLists
+ * @name sumOfLinkedLists - medium - linked lists - algoExpert
  * @description You're given two Linked Lists of potentially unequal lengths. 
  * Each linked list represents a non-negative integer, where each node in the 
  * linked list is a digit of that integer, and the first node in each linked 
@@ -47,6 +47,7 @@ import { SinglyLinkedList } from './med_LL_singlyLinkedListConst_Gen'
             }
             if(head !== null){
                 // insertBefore simm. -> Array.unshift()
+                // next three lines === typical swap mech...
                 let temp: LinkedList.SLL_Node = head
                 head = newNode;
                 newNode.next = temp;

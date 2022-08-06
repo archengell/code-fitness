@@ -125,7 +125,7 @@ export class SinglyLinkedList {
 
 
     // o(n) time | o(1) space
-    public remove(node: LinkedList.SLL_Node): LinkedList.SLL_Node | null {
+    public remove_linear(node: LinkedList.SLL_Node): LinkedList.SLL_Node | null {
 
       let curr: LinkedList.SLL_Node | null = this.head;
 
@@ -136,7 +136,14 @@ export class SinglyLinkedList {
         }
         curr = curr.next;
       }
+    }
 
+    // o(1) time + space
+    public remove_constant(node: LinkedList.SLL_Node): void {
+      if(node !== null) {
+        node.value = node.next.value;
+        node.next = node.next.next;
+      }
     }
 
     // public removeNodesWithValue(value: number): void {

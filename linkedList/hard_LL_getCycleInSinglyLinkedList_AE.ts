@@ -1,4 +1,4 @@
-import { SLL_Node, DLL_Node } from './a_linkedListClasses'
+import { SLL_Node, DLL_Node } from './a_linkedListNodeClasses'
 
 /**
  * @name getCycleInSinglyLinkedList_On_Space  hard/easy - AE/Neet 
