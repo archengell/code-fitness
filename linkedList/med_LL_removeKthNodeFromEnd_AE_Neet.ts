@@ -1,5 +1,5 @@
 import * as utils from '../utils'
-import * as LinkedList from './a_linkedListClasses'
+import * as LinkedList from './a_linkedListNodeClasses'
 import { SinglyLinkedList } from './med_LL_singlyLinkedListConst_Gen'
 
 function removeKthNodeFromEnd(head: LinkedList.SLL_Node, k: number) {

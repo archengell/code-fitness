@@ -12,7 +12,7 @@ export function swapWithSplice(targetIdx:number, sourceIdx:number, array:number[
  * @param right 
  * @param arr 
  */
-export function swap(left: number, right: number, arr: number[]){
+export function swap<T>(left: number, right: number, arr: T[]){
 
     let temp = arr[left]
     arr[left] = arr[right]
