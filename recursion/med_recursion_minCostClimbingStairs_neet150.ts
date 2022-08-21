@@ -85,5 +85,5 @@ let minCostClimbingStairs2: number[] = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
 // minCostClimbingStairs_opt1(minCostClimbingStairs2)
 // console.timeEnd()
 
-timed(minCostClimbingStairs_opt1, [minCostClimbingStairs2])
+timed('res', minCostClimbingStairs_opt1, [minCostClimbingStairs2])
 

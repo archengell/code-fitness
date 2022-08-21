@@ -142,4 +142,4 @@ let testCases: {[key: string] : ItwoNumSumInputs } = {
 
 let { array, targetSum } = testCases['test6']
 
-utils.timed('res', twoNumSum_fastest_map, [array, targetSum])
+utils.timed('res', twoNumSum_fastest_obj, [array, targetSum])

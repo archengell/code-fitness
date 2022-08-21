@@ -21,7 +21,7 @@ interface IThreeSumInput {
  * 2. set up while-loop w/ pointer each end simm twoSum2 (sliding window)
  * 3. push() 3-num array to res[][] when cond. met
  */
-// o(n2) time | o(n) space -> 3.43 ms
+// o(n2) time | o(n) space -> 3.43 ms **best sln
 function threeSum(nums: number[], targetSum: number = 0): number[][] {
 
     let res: number[][] = [];
@@ -59,7 +59,30 @@ function threeSum(nums: number[], targetSum: number = 0): number[][] {
     console.log(res)
     return res
 }
-
+// time: On2 | space: On ==> this sln doesn't account for duplication
+function threeSum_v1(nums: number[], targetSum: number = 0): number[][] {
+    
+    let sum: number = 0;
+    let res: number[][] = [];
+    nums.sort((a,b)=> a-b);
+    for(let i=0; i<nums.length; i++){
+        let left: number = i+1;
+        let right: number = nums.length - 1;
+        while(left !== right && left < right){
+            sum = nums[i] + nums[left] + nums[right];
+            if(sum < targetSum){
+                ++left;
+            }else if(sum > targetSum){
+                --right;
+           }else{
+                res.push([nums[i], nums[left], nums[right]])
+                ++left;
+                --right;
+           }
+        }
+    }
+    return res
+ }
 // o(n3) time | o(n) space
 function threeSum_brute_On3(arr: number[], target: number): number[][] {
 
@@ -106,4 +129,4 @@ let threeSumTest11: IThreeSumInput = {
 
 let {threeSumArr, targetSum} = threeSumTest1;
 
-utils.timed('res', threeSum_brute_On3, [threeSumArr, targetSum])
+utils.timed('res', threeSum, [threeSumArr, targetSum])

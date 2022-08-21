@@ -23,6 +23,7 @@ function removeElements(head: LinkedList.SLL_Node | null,
             temp = temp.next
         }
     }
+    // edge case if the head === value for removal of node
     return (head && head.value === val) ? head.next : head;
 };
 

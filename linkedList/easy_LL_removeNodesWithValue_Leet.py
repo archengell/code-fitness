@@ -11,7 +11,7 @@ def removeElements(head: Optional[ListNode], val: int) -> Optional[ListNode]:
             tmp.next = tmp.next.next
         else:
             tmp = tmp.next
-    # don't understand this part...        
+    # edge case if the head === value for removal of node       
     return head if head is not None or head.val != val else head.next
 
 

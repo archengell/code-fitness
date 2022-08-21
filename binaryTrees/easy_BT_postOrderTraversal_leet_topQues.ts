@@ -86,4 +86,4 @@ let inOrder: Typings.strNumArrObj = {
 }
 
 let binaryTree = createBinaryTreeFromNumArr(inOrder['test3'] as number[])
-utils.timed(postorderTraversal_iter, [binaryTree])
+utils.timed('res', postorderTraversal_iter, [binaryTree])

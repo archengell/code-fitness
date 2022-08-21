@@ -32,18 +32,20 @@ interface twoSum2 {
 function twoSum2(numbers: number[], target: number): number[] {
     let left: number = 0
     let right: number = numbers.length - 1;
-    
+    numbers.sort((a, b) => a - b)
+    console.log(numbers)
     while(left >= 0 && right < numbers.length && left < right && left != right){
-        
-        if(numbers[left] + numbers[right] > target){
+          
+        let sum: number = numbers[left] + numbers[right]
+        if(sum > target){
             --right;
-        }else if(numbers[left] + numbers[right] < target){
+        } else if (sum < target) {
             ++left;
         }else{
-            break
+            break;
         }
-    }
-    
+        }
+    // added +1 bc it states a 1-indexed array of integers!
     return [left+1, right+1]
 };
 
@@ -59,6 +61,11 @@ let twoSum2Test3: twoSum2 = {
     'numbers': [-1,0],
     'target1': -1
 }
-let {numbers, target1} = twoSum2Test3
+let twoSum2Test4: twoSum2 = {
+    'numbers': [3, 5, -4, 8, 11, 1, -1, 6], 
+    'target1': 10
+}
 
-console.log(twoSum2(numbers, target1 ))
+let {numbers, target1} = twoSum2Test4
+
+console.log(twoSum2(numbers, target1))

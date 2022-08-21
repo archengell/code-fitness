@@ -9,7 +9,7 @@ import * as utils from '../../utils'
  * @param toMove 
  * @returns 
  */
-// (n) time | (1) space -> 3.32 ms -> quickest, easiest to remember
+// (logn) time | (1) space -> 3.32 ms -> quickest, easiest to remember
 export function moveElementToEnd(array: number[], toMove: number) {
     array.sort((a: number, b: number) => {
         if(a === toMove){
@@ -92,4 +92,4 @@ let moveElemToEnd11: any = {
 
 let { array, toMove } = moveElemToEnd8
 
-utils.timed(moveElementToEndAndKeepArrOrder, [array, toMove])
+utils.timed('res', moveElementToEndAndKeepArrOrder, [array, toMove])
