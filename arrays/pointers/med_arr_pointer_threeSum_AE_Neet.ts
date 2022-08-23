@@ -18,8 +18,9 @@ interface IThreeSumInput {
  * @raises
  * @summary
  * 1. sort, then iterate thru array
- * 2. set up while-loop w/ pointer each end simm twoSum2 (sliding window)
- * 3. push() 3-num array to res[][] when cond. met
+ * 2. set up while-loop w/ 2-pointer 
+ * 3. memoization/cache w/ ${num}${num2}${num3}
+ * 4. push() 3-num array to res[][] 
  */
 // o(n2) time | o(n) space -> 3.43 ms **best sln
 function threeSum(nums: number[], targetSum: number = 0): number[][] {
@@ -127,6 +128,6 @@ let threeSumTest11: IThreeSumInput = {
     "targetSum": 5
 }//[]
 
-let {threeSumArr, targetSum} = threeSumTest1;
+let {threeSumArr, targetSum} = threeSumTest6;
 
 utils.timed('res', threeSum, [threeSumArr, targetSum])

@@ -16,6 +16,23 @@ import * as utils from '../utils'
  * @param array 
  * @returns 
  */
+ function getPermutations_study(array: number[]): number[][] {
+
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // O(n*n!) time | o(n) space -> 0.152 ms
 function getPermutations(array: number[]): number[][] {
@@ -27,7 +44,7 @@ function getPermutations(array: number[]): number[][] {
             // slice() w/o arguments creates a copy of array
             perms.push([...perm])
         } else {
-            for( let j = i; j < perm.length; j++){
+            for(let j = i; j < perm.length; j++){
                 utils.swap(i, j, perm)
                 createPerm(i + 1, perm, perms)
                 utils.swap(i, j, perm)
@@ -80,5 +97,5 @@ function getPermutations_3(array: number[], perm: number[] = [],
 
 let permutationTest1: number[] = [1, 2, 3];
 
-utils.timed(getPermutations, [permutationTest1])
+utils.timed('res', getPermutations, [permutationTest1])
   

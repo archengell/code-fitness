@@ -1,4 +1,4 @@
-
+import * as utils from '../utils'
 
 /** 
  * LEET_UBER & ALGOEXPERT: GROUP ANAGRAMS - MEDIUM
@@ -14,7 +14,12 @@
  * 
 */
 
-
+/**
+ * @name groupAnagrams - medium - AlgoExpert - NC150-LC49
+ * @access https://leetcode.com/problems/group-anagrams/
+ * @param strs 
+ * @returns 
+ */
 function groupAnagrams(strs: string[]): string[][] {
     let anagraMap = new Map<string,string[]>();
     let subGrp: string[];
@@ -40,4 +45,5 @@ let grpAnagramTests: {[key:string]: string[]} = {
     'test6': ["cinema", "a", "flop", "iceman", "meacyne", "lofp", "olfp"],
     'test7': ["yo", "oy", "zn"]
 }
-groupAnagrams(grpAnagramTests['test6'])
+
+utils.timed('res', groupAnagrams, [grpAnagramTests['test6']])

@@ -18,15 +18,16 @@ function areBracketsValidWithObj(str: string): boolean {
     let stack: string[] = [];
     
     for(let char of str){
-        //ex5: stack => )))}]} => 0:) 1:) 2:) 3:} 4:] 5:} 
+        // ex5: ((({[{ | }]}))) => stack => )))}]} => 0:) 1:) 2:) 3:} 4:] 5:} 
+        // *** need to use .includes() for (TS)!! 
         if((Object.keys(charMap).includes(char))){
             stack.push(charMap[char]) 
         // then once you get to }, pop stack -> }
             console.log(stack)
+        // need else if, or error
         }else if((Object.values(charMap).includes(char) && 
         char !== stack.pop())) return false 
     }
-    // console.log(())
     return stack.length === 0
 };
 

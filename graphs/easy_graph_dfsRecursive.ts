@@ -32,5 +32,5 @@ let nodes: string[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
 let edges: string[][] = [['a','b'], ['a','c'], ['a','d'], ['c','d'],
     ['c','g'], ['d','g'], ['d','h'], ['b','e'], ['b','f'], ['e','i'], ['f', 'i']]
 
-let adjList: typing.genericObj<any, any[]> = createAdjList<any>(nodes, edges);
+let adjList: typing.genericObj<any, any[]> = createAdjList<any>(edges, nodes);
 console.log(graphDfsRecursive(adjList, Object.keys(adjList)[0]))

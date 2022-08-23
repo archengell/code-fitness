@@ -21,7 +21,7 @@ function connectdComponentsInGraph<T>(nodes: T[], edges: T[][], Type = Stack): n
     'DFS Iterative initiated...' : 'BFS Interative initiated...');
     console.log(initation)
 
-    let graph: any = createAdjList(nodes, edges);
+    let graph: any = createAdjList(edges, nodes);
     let visited = new Map<T, boolean>();
     let count: number = 0;
 

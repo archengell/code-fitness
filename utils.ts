@@ -71,17 +71,29 @@ export function binarySearch(arr: number[], target: number): number {
  */
  let us: any = [-1, 0, 1, 5, 5, 4, 3, 3, 3]
 // o(n) time & space
-export function getElemFrequencyWithMap<T>(arr: T[]): Map< T | T[], number> {
+export function getElemFrequencyWithMap<T>(arr: T[]): Map< T, number> {
     
     //this has to be a  number bc you are getting frequency... 
-    let map = new Map< T | T[], number>()
+    let map = new Map< T, number>()
 
     for(let num of arr){
-        map.set(num, (map.get(num) + 1 || 1))
-        // map.set(num, 1 + (map.get(num) || 0))
+        // map.set(num, (map.get(num) + 1 || 1))
+        map.set(num, 1 + (map.get(num) || 0)) // google swe approach
     }
     return map
 }
+// timed('res', getElemFrequencyWithMap, [us])
+
+export function getElemFrequencyWithObject<T>(arr: any[]): any {
+
+  let obj = {}
+    for(let elem of arr){
+      obj[elem] = 1 + (obj[elem] || 0)
+    }
+  return obj
+}
+// timed('res', getElemFrequencyWithObject, [us])
+
 
 /**
  * @description remove duplicate arrays within an array

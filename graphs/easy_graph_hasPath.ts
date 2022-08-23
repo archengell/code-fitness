@@ -2,6 +2,7 @@ import { Queue } from '../queues/queueSandBox'
 import { Stack } from '../stacks/a_stackSandbox'
 import * as typing from '../typing'
 import { createAdjList } from './easy_graph_createAdjList'
+import * as utils from '../utils'
 
 
 /**
@@ -26,16 +27,7 @@ function hasPathInGraph<T>(nodes: T[], edges: T[][], src: T, dest: T, Type = Sta
     let stackOrQueue: (Stack<T> | Queue<T>) = new Type([src])
     let visited = new Map<T, boolean>();
 
-    let graph: any = createAdjList(nodes, edges)
-    /** createAdjList alternative: */
-    // let graph: {[key: number]: T[]} = {}
-    // for(let edge of edges){
-    //     let [node1, node2] = edge;
-    //     if(!(node1 in graph)) graph[node1] = []
-    //     if(!(node2 in graph)) graph[node2] = []
-    //     graph && graph[node1].push(node2);
-    //     graph && graph[node2].push(node1);
-    // }
+    let graph: any = createAdjList(edges, nodes)
 
     visited.set(src, true)
     while(stackOrQueue.length()){
@@ -51,6 +43,15 @@ function hasPathInGraph<T>(nodes: T[], edges: T[][], src: T, dest: T, Type = Sta
 
     return false
 }
+    /** createAdjList alternative: */
+    // let graph: {[key: number]: T[]} = {}
+    // for(let edge of edges){
+    //     let [node1, node2] = edge;
+    //     if(!(node1 in graph)) graph[node1] = []
+    //     if(!(node2 in graph)) graph[node2] = []
+    //     graph && graph[node1].push(node2);
+    //     graph && graph[node2].push(node1);
+    // }
 
 let hasPathTest2 = {
     'nodes': [0, 1, 2, 3, 4, 5],
@@ -66,6 +67,7 @@ let hasPathTest1 = {
 }
 let { nodes, edges, src, dest } = hasPathTest2
 
-console.time()
-console.log(hasPathInGraph<number>(nodes, edges, src, dest, Queue))
-console.timeEnd()
+// console.time()
+// console.log(hasPathInGraph<number>(nodes, edges, src, dest, Queue))
+// console.timeEnd()
+utils.timed('res', hasPathInGraph, [nodes, edges, src, dest, Queue])

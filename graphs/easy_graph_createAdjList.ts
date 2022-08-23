@@ -1,5 +1,13 @@
 import * as typing from '../typing'
+import * as utils from '../utils'
 
+/**
+ * 
+ * @param edges 
+ * @param nodes 
+ * @param undirected 
+ * @returns 
+ */
 export function createAdjList<v>(edges: v[][], nodes?: v[],
     undirected = true): typing.genericObj<v,v[]>{
     let adjList: any = {};
@@ -26,13 +34,13 @@ export function createAdjList<v>(edges: v[][], nodes?: v[],
     return adjList
 }
 
-// let nodes: string[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
-// let edges: string[][] = [['a','b'], ['a','c'], ['a','d'], ['c','d'],
-//     ['c','g'], ['d','g'], ['d','h'], ['b','e'], ['b','f'], ['e','i'], ['f', 'i']]
+let nodes: string[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
+let edges: string[][] = [['a','b'], ['a','c'], ['a','d'], ['c','d'],
+    ['c','g'], ['d','g'], ['d','h'], ['b','e'], ['b','f'], ['e','i'], ['f', 'i']]
 
 //disconnected graph: 4 sub-graphs!
 // let nodes: string[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'];
 // let edges: string[][] = [['a','b'], ['a','c'], ['b','d'], ['b', 'e'], ['c', 'd'], 
 //     ['f','g'], ['g', 'h'], ['i','j'], ['i','k'], ['j', 'k']]
 
-// console.log(createAdjList<string>(nodes, edges))
+utils.timed('res', createAdjList, [edges, nodes])
