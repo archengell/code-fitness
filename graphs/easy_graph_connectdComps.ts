@@ -2,6 +2,7 @@ import { Queue } from '../queues/queueSandBox'
 import { Stack } from '../stacks/a_stackSandbox'
 import * as typing from '../typing'
 import { createAdjList } from './easy_graph_createAdjList'
+import * as utils from '../utils'
 
 /**
  * @description
@@ -15,7 +16,7 @@ import { createAdjList } from './easy_graph_createAdjList'
  * @param Type 
  * @returns 
  */
-function connectdComponentsInGraph<T>(nodes: T[], edges: T[][], Type = Stack): number {
+function numOfConnectedComponents<T>(nodes: T[], edges: T[][], Type = Stack): number {
 
     let initation: string = ( (Type === Stack) ? 
     'DFS Iterative initiated...' : 'BFS Interative initiated...');
@@ -58,6 +59,4 @@ let connectdCompsTest2 = {
 
 let {nodes, edges} = connectdCompsTest1;
 
-console.time()
-console.log(connectdComponentsInGraph<number>(nodes, edges, Stack))
-console.timeEnd()
+utils.timed('res', numOfConnectedComponents, [nodes, edges, Stack])

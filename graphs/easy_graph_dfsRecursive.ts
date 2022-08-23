@@ -2,8 +2,8 @@ import * as typing from '../typing'
 import { createAdjList } from './easy_graph_createAdjList'
 
 /**
+ * @name graphDfsRecursive
  * @description
- * @summary
  * @resource 
  * Graph Algorithms for Tech Interviews
  * https://www.youtube.com/watch?v=tWVWeAqZ0WU&list=PLjMkA_ZkTgZya9X3riGIQvF0Py3KR4Kzd&index=12&t=15s
@@ -11,7 +11,12 @@ import { createAdjList } from './easy_graph_createAdjList'
  * @param node 
  * @param arr 
  * @param visited 
- * @returns 
+ * @returns {Type[]}
+ * @steps
+ *      1. base: check visited.has(node)
+ *      2. push node to result array
+ *      3. store node in cache(visited) 
+ *      4. loop thru neighbors of graph[node]
  */
 export function graphDfsRecursive(graph: typing.genericObj<any,any[]>, node: any, 
     arr: any[] = [], visited: Map<any,Boolean> = new Map()){

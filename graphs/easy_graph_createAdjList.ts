@@ -43,4 +43,4 @@ let edges: string[][] = [['a','b'], ['a','c'], ['a','d'], ['c','d'],
 // let edges: string[][] = [['a','b'], ['a','c'], ['b','d'], ['b', 'e'], ['c', 'd'], 
 //     ['f','g'], ['g', 'h'], ['i','j'], ['i','k'], ['j', 'k']]
 
-utils.timed('res', createAdjList, [edges, nodes])
+// utils.timed('res', createAdjList, [edges, nodes])

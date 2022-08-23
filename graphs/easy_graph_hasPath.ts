@@ -8,8 +8,7 @@ import * as utils from '../utils'
 /**
  * @description
  * Determine if there is a path from source to target in undirected graph.
- * @summary
- * @resource 
+ * @access 
  * Graph Algorithms for Tech Interviews
  * https://www.youtube.com/watch?v=tWVWeAqZ0WU&list=PLjMkA_ZkTgZya9X3riGIQvF0Py3KR4Kzd&index=12&t=15s
  * @param nodes 
@@ -17,7 +16,11 @@ import * as utils from '../utils'
  * @param src 
  * @param dest 
  * @param Type 
- * @returns 
+ * @returns {boolean}
+ * @summary
+ *      1. same as graph-iter-traversal
+ *      2. init stack/visited w/ src
+ *      3. if neighbor === dest return true
  */
 function hasPathInGraph<T>(nodes: T[], edges: T[][], src: T, dest: T, Type = Stack): boolean {
     let initation: string = ( (Type === Stack) ? 
@@ -34,10 +37,11 @@ function hasPathInGraph<T>(nodes: T[], edges: T[][], src: T, dest: T, Type = Sta
         let current = stackOrQueue.remove();
         
         for(let neighbor of graph[current]){
-            if(visited.has(neighbor)) continue
-            if(!visited.has(neighbor)) visited.set(neighbor, true)
             if(neighbor === dest) return true
-            stackOrQueue.add(neighbor)
+            if(!visited.has(neighbor)) {
+                visited.set(neighbor, true)
+                stackOrQueue.add(neighbor)
+            }          
         }
     }
 
@@ -70,4 +74,4 @@ let { nodes, edges, src, dest } = hasPathTest2
 // console.time()
 // console.log(hasPathInGraph<number>(nodes, edges, src, dest, Queue))
 // console.timeEnd()
-utils.timed('res', hasPathInGraph, [nodes, edges, src, dest, Queue])
+utils.timed('res', hasPathInGraph, [nodes, edges, src, dest])

@@ -3,68 +3,45 @@ import { Stack } from '../stacks/a_stackSandbox'
 import * as utils from '../utils'
 
 
-// function makeGraph(edges: string[][], nodes: string[], undirected: boolean = true){
+function countConnectedComponents<T>(nodes, edges): number {
 
-
-// }
-
-// let nodes: string[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
-// let edges: string[][] = [['a','b'], ['a','c'], ['a','d'], ['c','d'],
-//     ['c','g'], ['d','g'], ['d','h'], ['b','e'], ['b','f'], ['e','i'], ['f', 'i']]
-
-// utils.timed('res', createAdjList, [edges, nodes])
-
-
-function graphTraversalIteratively(edges, nodes, DFS = true, 
-    undirected= true, arr = []){
-    
-    
-    // push current to arr
-    // set up graph 
+    let count: number = 0
+    let stack = []
     let graph = {}
+    let visited = new Map()
+
     for(let node of nodes){
         graph[node] = []
     }
-
     for(let edge of edges){
-        let [node1, node2] = edge;
-        if(undirected){
-            graph[node1].push(node2);
-            graph[node2].push(node1);
-        }else{
-            graph[node1].push(node2)
-        }
+        let [node1, node2] = edge
+        graph[node1].push(node2)
+        graph[node2].push(node1)
     }
-    
-    // initiate stack/queue and visited cache
-    let stackOrQueue = [nodes[0]]
-    let visited = new Map();
-    visited.set(nodes[0], true)
 
-    // while loop based on pop or unshift
-    while(stackOrQueue.length){
-        let current = stackOrQueue.pop() // dfs/bfs = pop/unshift
-        arr.push(current);
-        for(let neighbor of graph[current]){
-            if(!(visited.has(neighbor))){
-                visited.set(neighbor, true)
-                stackOrQueue.push(neighbor)
+    for(let node of nodes){
+        if(!visited.has(node)){
+            stack.push(node)
+            while(stack.length){
+                let current = stack.pop()
+                for(let neighbor of graph[current]){
+                    if(!visited.has(neighbor)){
+                        stack.push(neighbor)
+                        visited.set(neighbor, true)
+                    }
+                }
             }
+            ++count
         }
     }
+    return count
 }
 
+let connectdCompsTest1 = {
+    'nodes': [0, 1, 2, 3, 4],
+    'edges': [[0,1],[1,2],[3,4]],
+} // output: 2
 
-function graphTraveseRecursively(graph, node, arr = [], visited = new Map()){
-    
-    if(visited.has(node)) return;
-    arr.push(node)
-    visited.set(node, true)
-    for(let neighbor of graph[node]){
-        graphTraveseRecursively(graph, neighbor, arr, visited)
-    }
-}
+let {nodes, edges} = connectdCompsTest1
 
-let nodes: string[] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
-let edges: string[][] = [['a','b'], ['a','c'], ['a','d'], ['c','d'],
-    ['c','g'], ['d','g'], ['d','h'], ['b','e'], ['b','f'], ['e','i'], ['f', 'i']]
+utils.timed('res', countConnectedComponents, [nodes, edges])

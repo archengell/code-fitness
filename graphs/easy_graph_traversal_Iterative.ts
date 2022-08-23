@@ -7,7 +7,6 @@ import { createAdjList } from './easy_graph_createAdjList'
 /**
  * @description
  * Iterative graph traversal w/ BFS, DFS options based on type of data structure.
- * @summary
  * @resource 
  * Graph Algorithms for Tech Interviews
  * https://www.youtube.com/watch?v=tWVWeAqZ0WU&list=PLjMkA_ZkTgZya9X3riGIQvF0Py3KR4Kzd&index=12&t=15s
@@ -16,7 +15,18 @@ import { createAdjList } from './easy_graph_createAdjList'
  * @param Type 
  * @param arr 
  * @returns 
+ * @summary
+ *      1. init graph
+ *      2. create/init stack w/ first node
+ *      3. create/init visited w/ first node
+ *      4. while-loop
+ *      5. get current: dfs/bfs = pop/unshift
+ *      6. for-loop neighbors of graph[current]
+ *      7. check visited.has(neighbor)
+ *      8. if not, push neighbor to arr
+ *      9. cache neighbor in visited
  */
+
 function graphIterativeTraversal<N>(nodes: N[], edges: N[][] , Type = Stack, arr: N[] = []): N[]{
 
     let initation: string = ( (Type === Stack) ? 
@@ -49,4 +59,4 @@ let edges: string[][] = [['a','b'], ['a','c'], ['a','d'], ['c','d'],
     ['c','g'], ['d','g'], ['d','h'], ['b','e'], ['b','f'], ['e','i'], ['f', 'i']]
 
 graphIterativeTraversal<string>(nodes, edges);
-graphIterativeTraversal<string>(nodes, edges, Queue)
+// graphIterativeTraversal<string>(nodes, edges, Queue)

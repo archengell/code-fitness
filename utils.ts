@@ -27,7 +27,6 @@ export function swap<T>(left: number, right: number, arr: T[]){
  * @summary
  * 
  */
-
 export function timed<U>(note: string, callback: typing.func , args: U[] ) {
   
   console.time()

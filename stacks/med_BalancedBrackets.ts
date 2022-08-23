@@ -1,12 +1,20 @@
+import * as utils from '../utils'
+
+
 /**
  * AlgoExpert | Stack | Medium | Balanced Brackets
  * @description Write a function that takes in a string of brackets within
  * a range of characters accepted. The function should return a boolean 
  * representing whether the brackets are balanced. 
  * **NOTE THIS IS IDENTIAL TO easy_string_validBrackets_leet.
- * @summary 
  * @param string 
- * @returns 
+ * @returns {boolean}
+ * @summary
+ * 		1. init bracket map()
+ * 		2. init stack  
+ * 		3. loop thru str
+ * 		4. open/closed bracket conditional => push/pop
+ * 		5. if char !== stack.pop() || stack.lenth !== 0
  */
 
 function balancedBrackets(string: string) {
@@ -45,4 +53,4 @@ let balancedBracketsTest10: string = "(()agwg())((()agwga()())gawgwgag)"
 let balancedBracketsTest11: string = "{}gawgw()"
 
 
-console.log(balancedBrackets(balancedBracketsTest10))
+utils.timed('res', balancedBrackets, [balancedBracketsTest10])
