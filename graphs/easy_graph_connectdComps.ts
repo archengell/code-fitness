@@ -5,18 +5,22 @@ import { createAdjList } from './easy_graph_createAdjList'
 import * as utils from '../utils'
 
 /**
+ * @name countConnectedComponents - medium - LC323
+ * @access https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/
  * @description
  * Find the number of connected components in the undirected graph.
- * @summary
  * @resource 
  * Graph Algorithms for Tech Interviews
  * https://www.youtube.com/watch?v=tWVWeAqZ0WU&list=PLjMkA_ZkTgZya9X3riGIQvF0Py3KR4Kzd&index=12&t=15s
- * @param nodes 
- * @param edges 
+ * @param {number} nodes number of nodes 
+ * @param {number[][]} edges array of edges
  * @param Type 
- * @returns 
+ * @returns {number}
+ * @summary
+ *      1. init graph, stack, visited, count=0
+ *      2. iterate thru nodes doing dfs-iter + count
  */
-function numOfConnectedComponents<T>(nodes: T[], edges: T[][], Type = Stack): number {
+function countConnectedComponents<T>(nodes: T[], edges: T[][], Type = Stack): number {
 
     let initation: string = ( (Type === Stack) ? 
     'DFS Iterative initiated...' : 'BFS Interative initiated...');
@@ -36,9 +40,10 @@ function numOfConnectedComponents<T>(nodes: T[], edges: T[][], Type = Stack): nu
                 let current = stackOrQueue.remove()
         
                 for(let neighbor of graph[current]){
-                    if(visited.has(neighbor)) continue;
-                    if(!visited.has(neighbor)) visited.set(neighbor, true);
-                    stackOrQueue.add(neighbor);
+                    if(!visited.has(neighbor)){
+                        visited.set(neighbor, true);
+                        stackOrQueue.add(neighbor);
+                    } 
                 }
             }
             ++count;
@@ -59,4 +64,4 @@ let connectdCompsTest2 = {
 
 let {nodes, edges} = connectdCompsTest1;
 
-utils.timed('res', numOfConnectedComponents, [nodes, edges, Stack])
+utils.timed('res', countConnectedComponents, [nodes, edges, Stack])

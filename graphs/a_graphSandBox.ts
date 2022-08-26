@@ -158,7 +158,7 @@ class Graph<V> {
      * @returns
      * @raises 
      */
-    public dfsRecursiveTraversal(vertex: V, color: any, callback, parent: any = {}){
+    public dfsRecursiveTraversal(vertex: V, color: any, parent: any = {}, callback: Function){
         color[vertex] = 'grey';
         if(callback) {callback(vertex, parent[vertex])}
         let neighbors: V[] = this.adjList[vertex]
