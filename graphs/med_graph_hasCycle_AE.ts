@@ -17,7 +17,7 @@ import * as utils from '../utils'
  */
 
 function hasCycle(edges: number[][]): boolean {
-
+    // this should be converted to the color method used in courseSchedule!
     let stack: [string, number][] = [];
     let color: string[] = new Array(edges.length).fill('white');
 
@@ -51,8 +51,6 @@ function hasCycle(edges: number[][]): boolean {
  * @complexity time: o(e+n)*n | space: o(1)   
  */
 function hasCycle_v2(edges: number[][]): boolean {
-
-    let arr = [];
 
     let _dfs = (edges, node) => {
         let stack: number[] = []

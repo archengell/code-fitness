@@ -32,32 +32,34 @@ function threeSum(nums: number[], targetSum: number = 0): number[][] {
     nums.sort((a: number, b: number) => a - b); // 1
 
     for(let idx = 0;idx < nums.length; idx++){ // 2
-        let left: number = idx + 1
-        let right: number = nums.length - 1
+        let left: number = idx + 1;
+        let right: number = nums.length - 1;
 
-            while(left >= 0 && right < nums.length && left < right && 
-                left !== right){ // (sliding window)
-                    
-                    sum = nums[idx] + nums[left] + nums[right];
-                    // console.log(`idx: ${idx} L: ${left} R: ${right}`)
-                    if(sum < targetSum){
-                        ++left;
-                    }else if(sum > targetSum){
+        while(left >= 0 && right < nums.length && left < right && 
+            left !== right){ // (sliding window)
+                
+                sum = nums[idx] + nums[left] + nums[right];
+                // console.log(`idx: ${idx} L: ${left} R: ${right}`)
+                if(sum < targetSum){
+                    ++left;
+                }else if(sum > targetSum){
+                    --right;
+                }else{
+                    key = `${nums[idx]}${nums[left]}${nums[right]}`;
+                    console.log(key)
+                    if(!cache.has(key)){
+                        res.push([nums[idx], nums[left], nums[right]])
+                        cache.set(key, 0);
+                        // console.log(key)
                         --right;
+                        ++left;
                     }else{
-                        key = `${nums[idx]}${nums[left]}${nums[right]}`
-                        if(!cache.has(key)){
-                            res.push([nums[idx], nums[left], nums[right]])
-                            cache.set(key, 0);
-                            // console.log(key)
-                            --right;
-                        }else{
-                            --right;
-                        }
+                        --right;
+                        ++left;
                     }
-             }
+                }
+            }
     }
-    console.log(res)
     return res
 }
 // time: On2 | space: On ==> this sln doesn't account for duplication
@@ -128,6 +130,6 @@ let threeSumTest11: IThreeSumInput = {
     "targetSum": 5
 }//[]
 
-let {threeSumArr, targetSum} = threeSumTest6;
+let {threeSumArr, targetSum} = threeSumTest1;
 
 utils.timed('res', threeSum, [threeSumArr, targetSum])

@@ -29,10 +29,11 @@ function countConnectedComponents<T>(nodes: T[], edges: T[][], Type = Stack): nu
     let graph: any = createAdjList(edges, nodes);
     let visited = new Map<T, boolean>();
     let count: number = 0;
-
+    console.log(graph)
     for(let node of nodes){
 
         if(!visited.has(node)) {
+            console.log('gets here');
             let stackOrQueue: (Stack<T> | Queue<T>) = new Type([(node)]);
 
             while(stackOrQueue.length()){

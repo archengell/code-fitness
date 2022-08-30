@@ -3,15 +3,16 @@ import * as utils from '../utils'
 
 function maxSubStringLen(str: string){
 
-    let cache = new Set<string>()
+    let map = new Map<number, string[]>()
+    let set = new Set<string>()
     let max: number = 0;
     for(let j = 0, i = 0;  i < str.length; i++){
-        while(cache.has(str[i])){
-            console.log(cache)
-            cache.delete(str[j++])
+        while(set.has(str[i])){
+            console.log(set)
+            set.delete(str[j++])
         } 
-        cache.add(str[i])
-        max = Math.max(max, cache.size)
+        set.add(str[i])
+        max = Math.max(max, set.size)
     }
     return max
 }
