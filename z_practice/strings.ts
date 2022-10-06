@@ -20,3 +20,4 @@ function maxSubStringLen(str: string){
 let str1: string = 'abccxyz'
 
 utils.timed('res', maxSubStringLen, [str1])
+
