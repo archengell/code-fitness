@@ -1,18 +1,11 @@
-import * as utils from '../utils'
-
+import * as utils from '../utils';
 
 /**
- * 
- * 
- * This is a test to mess about with the rebased version of soemthing 
- * 
+ * This is a change that I've made to this branch that I'm going to keep.
  *
- */
-
-
-
-
-/**
- * 
- * this was an additional change in the main!
+ *
+ * This is the second change that I've done to this file to test the amend functionality.
+ *
+ * 3rd attempt to make another change to the file.
+ *
  */
