@@ -74,7 +74,7 @@ let largestComponentInGraphTest2 = {
 	],
 }; // output: 1
 
-let { nodes, edges } = largestComponentInGraphTest2;
+let { nodes, edges } = largestComponentInGraphTest1;
 
 console.time();
 console.log(largestComponentInGraph<number>(nodes, edges, Stack));

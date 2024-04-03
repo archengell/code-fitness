@@ -2,7 +2,6 @@ import { Queue } from '../queues/queueSandBox';
 import { Stack } from '../stacks/a_stackSandbox';
 import * as typing from '../typing';
 import { createAdjList } from './easy_graph_createAdjList';
-import * as utils from '../utils';
 
 /**
  * @description
@@ -27,20 +26,13 @@ import * as utils from '../utils';
  *      9. cache neighbor in visited
  */
 
-function graphIterativeTraversal<N>(
-	nodes: N[],
-	edges: N[][],
-	Type = Stack,
-	arr: N[] = []
-): N[] {
+function graphIterativeTraversal<N>(nodes: N[], edges: N[][], Type = Stack, arr: N[] = []): N[] {
 	let initation: string =
-		Type === Stack
-			? 'DFS Iterative initiated...'
-			: 'BFS Interative initiated...';
+		Type === Stack ? 'DFS Iterative initiated...' : 'BFS Interative initiated...';
 	console.log(initation);
 
 	let adjList: typing.genericObj<N, N[]> = createAdjList<N>(edges, nodes);
-	console.log(adjList);
+	// console.log(adjList);
 	let stackOrQueue: Stack<N> | Queue<N> = new Type<N>([nodes[0]]);
 
 	let visited = new Map<N, boolean>(); // could just use a Set()...
@@ -56,6 +48,7 @@ function graphIterativeTraversal<N>(
 			}
 		}
 	}
+	console.log(arr);
 	return arr;
 }
 
@@ -74,5 +67,5 @@ let edges: string[][] = [
 	['f', 'i'],
 ];
 
-utils.timed('test1', graphIterativeTraversal, [nodes, edges, Stack]);
+graphIterativeTraversal<string>(nodes, edges);
 // graphIterativeTraversal<string>(nodes, edges, Queue)

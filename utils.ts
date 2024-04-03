@@ -1,7 +1,19 @@
 import * as typing from './typing';
 
 /**
- * @desc swap targets
+ * @description swap variables w/ js splice function
+ * @summary o(n) time & space
+ * @param targetIdx
+ * @param sourceIdx
+ * @param array
+ */
+export function swapWithSplice(targetIdx: number, sourceIdx: number, array: number[]) {
+	let removed: number[] = array.splice(sourceIdx, 1);
+	array.splice(targetIdx, 0, removed[0]);
+}
+
+/**
+ * @description swaps desired numbers
  * @summary o(1) time & space
  * @param left
  * @param right
@@ -11,17 +23,6 @@ export function swap<T>(left: number, right: number, arr: T[]) {
 	let temp = arr[left];
 	arr[left] = arr[right];
 	arr[right] = temp;
-}
-
-/**
- * @desc swap targets using splice func
- * @param targetIdx
- * @param sourceIdx
- * @param array
- */
-export function swapWithSplice(targetIdx: number, sourceIdx: number, array: number[]) {
-	let removed: number[] = array.splice(sourceIdx, 1);
-	array.splice(targetIdx, 0, removed[0]);
 }
 
 /**

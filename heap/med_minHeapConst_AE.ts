@@ -1,8 +1,7 @@
-import * as utils from '../utils'
-
+import * as utils from '../utils';
 
 /**
- * @description 
+ * @description
  * -- resource: https://stackabuse.com/heap-sort-in-javascript/
  */
 // export class MaxHeap<T>{
@@ -45,7 +44,7 @@ import * as utils from '../utils'
 //     }
 //     /**
 //      * @description heap node deletion
-//      * @returns 
+//      * @returns
 //      */
 //     public delete(): number {
 //         // remove top of max heap
@@ -70,105 +69,102 @@ import * as utils from '../utils'
 // }
 
 export class MinHeap {
-    public heap: number[];
+	public heap: number[];
 
-    constructor(arr: number[]){
-        this.heap = this.buildHeap(arr);
-    }
+	constructor(arr: number[]) {
+		this.heap = this.buildHeap(arr);
+	}
 
-    public buildHeap(arr: number[]): number[] {
+	public buildHeap(arr: number[]): number[] {
+		const parentIdx = Math.floor((arr.length - 2) / 2);
+		for (let currentIdx = parentIdx; currentIdx >= 0; currentIdx--) {
+			this.bubbleDown(currentIdx, arr.length - 1, arr);
+		}
+		return arr;
+	}
 
-        const parentIdx = Math.floor((arr.length -2) / 2);
-        for(let currentIdx = parentIdx; currentIdx >= 0; currentIdx--){
-            this.bubbleDown(currentIdx, arr.length - 1, arr)
-        }
-        return arr;
-    }
+	// public convertNumArrToPriorityQueueArr(arr: number[]): iPQElement<T>[]{
+	//     let res: iPQElement<T>[] = []
+	//     for(let i = 0; i < arr.length; i++){
+	//         res.push(new PQElement<T>(arr[i]))
+	//     }
+	//     return res
+	// }
 
-    // public convertNumArrToPriorityQueueArr(arr: number[]): iPQElement<T>[]{
-    //     let res: iPQElement<T>[] = []
-    //     for(let i = 0; i < arr.length; i++){
-    //         res.push(new PQElement<T>(arr[i]))
-    //     }
-    //     return res
-    // } 
+	public parentIdx(index: number): number {
+		return Math.floor((index - 1) / 2);
+	}
 
-    public parentIdx(index: number): number {
-        return Math.floor((index - 1) / 2);
-    }
+	public leftChildIdx(index: number): number {
+		return 2 * index + 1;
+	}
 
-    public leftChildIdx(index: number): number {
-        return (2*index + 1);
-    }
+	public rightChildIdx(index: number): number {
+		return 2 * index + 2;
+	}
 
-    public rightChildIdx(index: number): number {
-        return (2*index + 2);
-    }
+	public bubbleDown(index: number, endIdx: number, heap: number[]): void {
+		let leftChildIdx: number = this.leftChildIdx(index);
+		//loop while child nodes exist
+		while (leftChildIdx <= endIdx) {
+			//compare child nodes, get smaller priority value of left and right
+			let rightChildIdx: number = this.rightChildIdx(index);
+			let smallerChildIdx: number =
+				rightChildIdx && heap[rightChildIdx] < heap[leftChildIdx] ? rightChildIdx : leftChildIdx;
 
-    public bubbleDown(index: number, endIdx: number, heap: number[]): void {
-        let leftChildIdx: number = this.leftChildIdx(index);
-        //loop while child nodes exist
-        while(leftChildIdx <= endIdx){
-            //compare child nodes, get smaller priority value of left and right
-            let rightChildIdx: number = this.rightChildIdx(index) 
-            let smallerChildIdx: number =  (rightChildIdx && 
-                heap[rightChildIdx] < heap[leftChildIdx]) ? 
-                rightChildIdx : leftChildIdx;
+			if (heap[smallerChildIdx] < heap[index]) {
+				this.swapIdx(index, smallerChildIdx, heap);
+				index = smallerChildIdx;
+				leftChildIdx = this.leftChildIdx(index);
+			} else {
+				return;
+			}
+		}
+	}
 
-            if(heap[smallerChildIdx] < heap[index]){
-                this.swapIdx(index, smallerChildIdx, heap);
-                index = smallerChildIdx
-                leftChildIdx = this.leftChildIdx(index);          
-            }else{
-                return
-            }
-        }
-    }
-    
-    public bubbleUp(index: number, heap: number[]): void {
-        let parent = this.parentIdx(index);
-        while(index > 0 && this.isGreaterThan(parent, index)){
-            this.swapIdx(parent, index, heap);
-            index = parent;
-            parent = Math.floor((index - 1) / 2);
-        }
-    }
+	public bubbleUp(index: number, heap: number[]): void {
+		let parent = this.parentIdx(index);
+		while (index > 0 && this.isGreaterThan(parent, index)) {
+			this.swapIdx(parent, index, heap);
+			index = parent;
+			parent = Math.floor((index - 1) / 2);
+		}
+	}
 
-    public isLessThan(parentIdx: number, idx: number): boolean {
-        return this.heap[parentIdx]['priority'] < this.heap[idx]['priority']
-    }
-    public isGreaterThan(parentIdx: number, idx: number): boolean {
-        return this.heap[parentIdx] > this.heap[idx]
-    }
+	public isLessThan(parentIdx: number, idx: number): boolean {
+		return this.heap[parentIdx]['priority'] < this.heap[idx]['priority'];
+	}
+	public isGreaterThan(parentIdx: number, idx: number): boolean {
+		return this.heap[parentIdx] > this.heap[idx];
+	}
 
-    public swapIdx(a:number, b:number, arr: number[]){
-        let temp: number = arr[b];
-        arr[b] = arr[a];
-        arr[a] = temp;
-    }
+	public swapIdx(a: number, b: number, arr: number[]) {
+		let temp: number = arr[b];
+		arr[b] = arr[a];
+		arr[a] = temp;
+	}
 
-    public insert(index: number): void {
-        this.heap.push(index)
-        this.bubbleUp(this.heap.length - 1, this.heap)
-    }
+	public insert(index: number): void {
+		this.heap.push(index);
+		this.bubbleUp(this.heap.length - 1, this.heap);
+	}
 
-    public remove(): number {
-        // remove top heap elem
-        this.swapIdx(0, this.heap.length - 1, this.heap);
-        const res: number = this.heap.pop();
-        this.bubbleDown(0, this.heap.length - 1, this.heap);
-        // return priority of deleted top heap element
-        return res
-    }
+	public remove(): number {
+		// remove top heap elem
+		this.swapIdx(0, this.heap.length - 1, this.heap);
+		const res: number = this.heap.pop();
+		this.bubbleDown(0, this.heap.length - 1, this.heap);
+		// return priority of deleted top heap element
+		return res;
+	}
 
-    public peek(): any {
-        console.log(`peek: ${this.heap[0]}`)
-        return this.heap[0];
-    }
+	public peek(): any {
+		console.log(`peek: ${this.heap[0]}`);
+		return this.heap[0];
+	}
 }
 
-
-let heapTest: number[] = [48, 12, 24, 7, 8, -5, 24, 391, 24, 56, 2, 6, 8, 41]
+let heapTest: number[] = [48, 12, 24, 7, 8, -5, 24, 391, 24, 56, 2, 6, 8, 41];
 // let heapTest1: iPQElement<shearwall>[] = [
 //     {'priority': 48, 'value': {'type': 'U', 'length':48, 'force': 999}},
 //     {'priority': 12, 'value': {'type': 'G', 'length':12, 'force': 875}},
@@ -186,17 +182,16 @@ let heapTest: number[] = [48, 12, 24, 7, 8, -5, 24, 391, 24, 56, 2, 6, 8, 41]
 //     {'priority': 41, 'value': {'type': 'Z', 'length':41, 'force': 657}}
 //     ]
 
-let heap = new MinHeap(heapTest)
-console.log('heap 1', heap)
+let heap = new MinHeap(heapTest);
+console.log('heap 1', heap);
 heap.insert(76);
-console.log('heap 2', heap)
+console.log('heap 2', heap);
 heap.peek();
 heap.remove();
 heap.peek();
 heap.remove();
 heap.peek();
-heap.insert(87)
-console.log('heap 3', heap)
-
+heap.insert(87);
+console.log('heap 3', heap);
 
 // utils.timed('heap', heap.buildHeap, [heapTest])

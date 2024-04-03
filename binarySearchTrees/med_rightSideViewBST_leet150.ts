@@ -32,7 +32,7 @@ function rightSideViewBFS(node: BT.CreateBTNode | null): number[] {
 			let node: any = queue.shift();
 			if (i === numOfNodesAtLvl - 1) rightSideNodes.push(node.value);
 			node.left && queue.push(node.left);
-			console.log(node.right && queue.push(node.right));
+			node.right && queue.push(node.right);
 		}
 	}
 	return rightSideNodes;

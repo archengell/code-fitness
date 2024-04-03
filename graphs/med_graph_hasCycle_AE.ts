@@ -2,9 +2,8 @@ import * as utils from '../utils';
 
 /**
  * @info medium - AlgoExpert
- * @notes this doesn't work!! figure out why?!
  * @access
- * @description  DAG cycle detection => leetcode ref:
+ * @description  DAG cycle detection
  * @param {number[][]} edges
  * @returns {boolean}
  * @summary
@@ -44,7 +43,6 @@ function hasCycle(edges: number[][]): boolean {
 }
 
 /**
- * @notes this works
  * @summary
  *      1. write _dfs(iterative) helperfunc
  *      2. _dfs: if edges[current].includes node => true
@@ -85,4 +83,4 @@ let edges8: number[][] = [[1], [2, 3, 4, 5, 6, 7], [], [2, 7], [5], [], [4], []]
 let edges9: number[][] = [[1], [2, 3, 4, 5, 6, 7], [], [2, 7], [5], [], [4], [0]]; // true
 let edges12: number[][] = [[], [0, 3], [0], [1, 2]]; // true
 
-utils.timed('res', hasCycle_v2, [edges12]);
+utils.timed('res', hasCycle, [edges12]);

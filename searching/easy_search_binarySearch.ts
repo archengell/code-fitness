@@ -27,9 +27,9 @@ function binarySearch(array: number[], target: number): number {
 	let sortdArr: number[] = array.sort((a, b) => a - b);
 	while (min <= max) {
 		let mid: number = Math.floor((min + max) * 0.5);
-		if (target > sortdArr[mid]) {
+		if (sortdArr[mid] < target) {
 			min = mid + 1;
-		} else if (target < sortdArr[mid]) {
+		} else if (sortdArr[mid] > target) {
 			max = mid - 1;
 		} else {
 			console.log(mid);

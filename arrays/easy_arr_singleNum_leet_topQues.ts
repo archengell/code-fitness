@@ -6,16 +6,15 @@
  * @param nums
  * @returns
  */
-function singleNumber(nums: number[]): any {
+function singleNumber(nums: number[]): number {
 	let frequency: { [key: number]: number } = {};
 	for (let num of nums) {
 		frequency[num] = frequency[num] ? frequency[num] + 1 : 1;
 	}
 
-	// for(let num of nums){
-	//     if(frequency[num] === 1) return num
-	// }
-	return frequency;
+	for (let num of nums) {
+		if (frequency[num] === 1) return num;
+	}
 }
 
 let singleNumTest1: number[] = [2, 2, 1];
