@@ -43,15 +43,37 @@ function preorderTraversal(root: inOrderTravNode | null, arr: number[] = []): nu
     arr.push(root.val);
     root.left && preorderTraversal(root.left, arr)    
     root.right && preorderTraversal(root.right, arr)
-    console.log(arr)
     return arr
 
 };
 
-let inOrder: Typings.strNumArrObj = {
+function preorderTraversal_iter(node: inOrderTravNode | null, arr: number[] = []): number[] | void {
+    
+    if(!node) return
+    let stack: inOrderTravNode[] = [];
+    let res: number[] = [];
+   
+    stack.push(node)
+    while(stack.length){
+        if(node){
+            node = stack.pop()
+            res.push(node.val)
+            node.right && stack.push(node.right)
+            node.left && stack.push(node.left)   
+        }
+    }
+    return res
+};
+
+let preOrder: Typings.strNumArrObj = {
     'test1': [1, null, 2, 3],
-    'test2': []
+    'test2': [],
+    // 5, 3, 2, 4, 6
+    'test3': [ 5, 3, 6, 2, 4 ], 
+    // 11,  7,  5,  3,  6,  9, 8, 10, 15, 13, 12, 14, 20, 18, 25
+    'test4': [ 11, 7, 15, 5, 9, 13, 20, 3, 6, 8, 10, 12, 14,18, 25] 
 }
 
-let binaryTree = createBinaryTreeFromNumArr(inOrder['test1'] as number[])
+let binaryTree = createBinaryTreeFromNumArr(preOrder['test4'] as number[])
 utils.timed('res', preorderTraversal, [binaryTree])
+utils.timed('res_iter', preorderTraversal_iter, [binaryTree])

@@ -1,7 +1,7 @@
 
 import { CreateBTNode as MaxDepthNode, convertArrToBinaryTree} from './easy_BT_createBinaryTree'
 
-function maxDepth(root: MaxDepthNode | null): number {
+function getTreeDepth(root: MaxDepthNode | null): number {
     return getNodeHeight(root);
 };
 
@@ -16,5 +16,6 @@ function getNodeHeight(root: MaxDepthNode){
 }
 
 let getMaxDepthTest1: number[] = [3,9,20,null,null,15,7]
+let test1: number[] = [ 11, 7, 15, 5, 9, 13, 20, 3, 6, 8, 10, 12, 14,18, 25] 
 
-console.log(maxDepth(convertArrToBinaryTree(getMaxDepthTest1)))
+console.log(getTreeDepth(convertArrToBinaryTree(test1)))

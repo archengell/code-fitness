@@ -3,7 +3,7 @@ import * as utils from '../utils'
 
 
 /**
- * given the root of a binary tree, return inorder traversal 
+ * given the root of a binary tree, return inorder traversal : left -> root -> right
  * of it's node values
  * 
  * 
@@ -60,13 +60,13 @@ function inorderTraversal_recursion(root: inOrderTravNode | null, arr: number[] 
  * @returns 
  */
 // o(n) time & space --> 0.092 ms 
-function inorderTraversal_iter(root: inOrderTravNode): number[]{
+function inorderTraversal_iter(node: inOrderTravNode): number[]{
 
     let stack: inOrderTravNode[] = [];
     let res: number[] = [];
-    let node = root;
 
-    while(node || stack.length){
+    stack.push(node)
+    while(stack.length){
         while(node){
             stack.push(node);
             node = node.left;
@@ -80,10 +80,13 @@ function inorderTraversal_iter(root: inOrderTravNode): number[]{
 }
 
 let inOrder: Typings.strNumArrObj = {
-    'test1': [1, null, 2, 3],
+    'test1': [1, null, 2, 3 ],
     'test2': [],
-    'test3': [ 5, 3, 6, 2, 4]
+    'test3': [ 5, 3, 6, 2, 4 ],
+    // 3,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 18, 20, 25
+    'test4': [ 11, 7, 15, 5, 9, 13, 20, 3, 6, 8, 10, 12, 14,18, 25 ]
 }
 
-let binaryTree = createBinaryTreeFromNumArr(inOrder['test3'] as number[])
-utils.timed(inorderTraversal_iter, [binaryTree])
+let binaryTree = createBinaryTreeFromNumArr(inOrder['test4'] as number[])
+utils.timed('test',inorderTraversal_recursion, [binaryTree])
+utils.timed('test_iter',inorderTraversal_iter, [binaryTree])

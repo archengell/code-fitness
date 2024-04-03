@@ -112,7 +112,7 @@ function getNthFibRecursive_Memo(n: number, memoize: cache = {0:0, 1: 1}): numbe
     }
 }
 
-utils.timed('res', getNthFibRecursive, [6])
+utils.timed('res', getFibSeqIteratively_2, [6])
 
 
 
