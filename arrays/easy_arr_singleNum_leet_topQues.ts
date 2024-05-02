@@ -9,7 +9,8 @@
 function singleNumber(nums: number[]): number {
 	let frequency: { [key: number]: number } = {};
 	for (let num of nums) {
-		frequency[num] = frequency[num] ? frequency[num] + 1 : 1;
+		// frequency[num] = frequency[num] ? frequency[num] + 1 : 1;
+		frequency[num] = (frequency[num] || 0) + 1;
 	}
 
 	for (let num of nums) {
