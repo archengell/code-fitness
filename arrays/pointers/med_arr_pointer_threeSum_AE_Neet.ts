@@ -1,9 +1,8 @@
-
-import * as utils from '../../utils'
+import * as utils from '../../utils';
 
 interface IThreeSumInput {
-    'threeSumArr': number[],
-    'targetSum': number
+	threeSumArr: number[];
+	targetSum: number;
 }
 
 /**
@@ -13,123 +12,190 @@ interface IThreeSumInput {
  * [ nums[i], nums[j], nums[k]] such that i != j, j != k,
  * k != i, and nums[i] + nums[j] + nums[k] === 0.
  * *** SLN set must not contain duplicate triplets! ***
- * @param nums 
- * @returns 
+ * @param nums
+ * @returns
  * @raises
  * @summary
  * 1. sort, then iterate thru array
- * 2. set up while-loop w/ 2-pointer 
+ * 2. set up while-loop w/ 2-pointer
  * 3. memoization/cache w/ ${num}${num2}${num3}
- * 4. push() 3-num array to res[][] 
+ * 4. push() 3-num array to res[][]
  */
-// o(n2) time | o(n) space -> 3.43 ms **best sln
-function threeSum(nums: number[], targetSum: number = 0): number[][] {
 
-    let res: number[][] = [];
-    let sum: number;
-    let key: string;
-    let cache = new Map<string, number>();
-    nums.sort((a: number, b: number) => a - b); // 1
+// o(n2) time | o(n) space -> 206ms > 34%
+function threeSum(nums: number[]): number[][] {
+	let res: number[][] = [];
+	let temp: number[] = [];
+	let key: string = '';
+	let store = new Map<string, number>();
+	let sum: number;
+	nums.sort((a, b) => a - b);
+	for (let i = 0; i < nums.length - 2; i++) {
+		if (i > 0 && nums[i] === nums[i - 1]) continue;
+		let left = i + 1;
+		let right = nums.length - 1;
+		while (left < right) {
+			sum = nums[i] + nums[left] + nums[right];
+			if (sum > 0) {
+				right--;
+			} else if (sum < 0) {
+				left++;
+			} else {
+				key = `${nums[i]}${nums[left]}${nums[right]}`;
+				temp = [nums[i], nums[left], nums[right]];
+				if (!store.has(key)) {
+					res.push(temp);
+					store.set(key, 0);
+					left++;
+				} else left++;
+			}
+		}
+	}
+	return res;
+}
 
-    for(let idx = 0;idx < nums.length; idx++){ // 2
-        let left: number = idx + 1;
-        let right: number = nums.length - 1;
+// better sln by other 128ms
+function threeSum_better(nums: number[]): number[][] {
+	const ans: number[][] = [];
+	nums.sort((a, b) => a - b);
+	for (let i = 0; i < nums.length; i++) {
+		const current = nums[i];
+		let low = i + 1;
+		let high = nums.length - 1;
+		if (i === 0 || current !== nums[i - 1]) {
+			while (low < high) {
+				const sum = current + nums[low] + nums[high];
+				if (sum < 0) {
+					low++;
+				} else if (sum > 0) {
+					high--;
+				} else {
+					ans.push([current, nums[low], nums[high]]);
+					low++;
+					high--;
 
-        while(left >= 0 && right < nums.length && left < right && 
-            left !== right){ // (sliding window)
-                
-                sum = nums[idx] + nums[left] + nums[right];
-                // console.log(`idx: ${idx} L: ${left} R: ${right}`)
-                if(sum < targetSum){
-                    ++left;
-                }else if(sum > targetSum){
-                    --right;
-                }else{
-                    key = `${nums[idx]}${nums[left]}${nums[right]}`;
-                    console.log(key)
-                    if(!cache.has(key)){
-                        res.push([nums[idx], nums[left], nums[right]])
-                        cache.set(key, 0);
-                        // console.log(key)
-                        --right;
-                        ++left;
-                    }else{
-                        --right;
-                        ++left;
-                    }
-                }
-            }
-    }
-    return res
+					// Skip over duplicates:
+					while (low < high && nums[low] === nums[low - 1]) {
+						low++;
+					}
+					while (low < high && nums[high] === nums[high + 1]) {
+						high--;
+					}
+				}
+			}
+		}
+	}
+	return ans;
+}
+
+// o(n2) time | o(n) space -> 3.43 ms ** THIS ACTUALLY DIDNT'WORK !!! **
+function threeSum_notWorking(nums: number[], targetSum: number = 0): number[][] {
+	let res: number[][] = [];
+	let sum: number;
+	let key: string;
+	let cache = new Map<string, number>();
+	nums.sort((a: number, b: number) => a - b); // 1
+
+	for (let idx = 0; idx < nums.length; idx++) {
+		// 2
+		let left: number = idx + 1;
+		let right: number = nums.length - 1;
+
+		while (left < right) {
+			// (sliding window)
+
+			sum = nums[idx] + nums[left] + nums[right];
+			// console.log(`idx: ${idx} L: ${left} R: ${right}`)
+			if (sum < targetSum) {
+				left++;
+			} else if (sum > targetSum) {
+				right--;
+			} else {
+				key = `${nums[idx]}${nums[left]}${nums[right]}`;
+				if (!cache.has(key)) {
+					res.push([nums[idx], nums[left], nums[right]]);
+					cache.set(key, 0);
+					right--;
+					left++;
+				} else {
+					right--;
+					left++;
+				}
+			}
+		}
+	}
+	return res;
 }
 // time: On2 | space: On ==> this sln doesn't account for duplication
 function threeSum_v1(nums: number[], targetSum: number = 0): number[][] {
-    
-    let sum: number = 0;
-    let res: number[][] = [];
-    nums.sort((a,b)=> a-b);
-    for(let i=0; i<nums.length; i++){
-        let left: number = i+1;
-        let right: number = nums.length - 1;
-        while(left !== right && left < right){
-            sum = nums[i] + nums[left] + nums[right];
-            if(sum < targetSum){
-                ++left;
-            }else if(sum > targetSum){
-                --right;
-           }else{
-                res.push([nums[i], nums[left], nums[right]])
-                ++left;
-                --right;
-           }
-        }
-    }
-    return res
- }
+	let sum: number = 0;
+	let res: number[][] = [];
+	nums.sort((a, b) => a - b);
+	for (let i = 0; i < nums.length; i++) {
+		let left: number = i + 1;
+		let right: number = nums.length - 1;
+		while (left !== right && left < right) {
+			sum = nums[i] + nums[left] + nums[right];
+			if (sum < targetSum) {
+				++left;
+			} else if (sum > targetSum) {
+				--right;
+			} else {
+				res.push([nums[i], nums[left], nums[right]]);
+				++left;
+				--right;
+			}
+		}
+	}
+	return res;
+}
 // o(n3) time | o(n) space
 function threeSum_brute_On3(arr: number[], target: number): number[][] {
-
-    let res: number[][] = [];
-    let sum: number
-    //three for loops 
-    // interesting need to look into why there is three values when there should be two.
-    for(let i = 0; i < arr.length - 2; i++){
-        for(let j = i; j < arr.length - 1; j++){
-            for(let k = j; k < arr.length; k++){
-                sum = arr[i] + arr[j] + arr[k]
-                if(sum === target && (i !== j && j !== k && k !== i)) res.push([arr[i], arr[j], arr[k]])
-            }
-        }
-    }
-    console.log(res)
-    return res
+	let res: number[][] = [];
+	let sum: number;
+	//three for loops
+	// interesting need to look into why there is three values when there should be two.
+	for (let i = 0; i < arr.length - 2; i++) {
+		for (let j = i; j < arr.length - 1; j++) {
+			for (let k = j; k < arr.length; k++) {
+				sum = arr[i] + arr[j] + arr[k];
+				if (sum === target && i !== j && j !== k && k !== i) res.push([arr[i], arr[j], arr[k]]);
+			}
+		}
+	}
+	console.log(res);
+	return res;
 }
 
 let threeSumTest1: IThreeSumInput = {
-    "threeSumArr": [-1,0,1,2,-1,-4],
-    "targetSum": 0
-}//[ [ -1, -1, 2 ], [ -1, 0, 1 ] ]
+	threeSumArr: [-1, 0, 1, 2, -1, -4],
+	targetSum: 0,
+}; //[ [ -1, -1, 2 ], [ -1, 0, 1 ] ]
 let threeSumTest6: IThreeSumInput = {
-    "threeSumArr": [12, 3, 1, 2, -6, 5, 0, -8, -1, 6],
-    "targetSum": 0
-}//[[ -8, 2, 6 ],[ -8, 3, 5 ],[ -6, 0, 6 ],[ -6, 1, 5 ],[ -1, 0, 1 ]]
+	threeSumArr: [12, 3, 1, 2, -6, 5, 0, -8, -1, 6],
+	targetSum: 0,
+}; //[[ -8, 2, 6 ],[ -8, 3, 5 ],[ -6, 0, 6 ],[ -6, 1, 5 ],[ -1, 0, 1 ]]
 let threeSumTest8: IThreeSumInput = {
-    "threeSumArr": [1, 2, 3, 4, 5, 6, 7, 8, 9, 15],
-    "targetSum": 18
-}//[[1, 2, 15],[1, 8, 9],[2, 7, 9],[3, 6, 9],[3, 7, 8],[4, 5, 9],[4, 6, 8],[5, 6, 7]]
+	threeSumArr: [1, 2, 3, 4, 5, 6, 7, 8, 9, 15],
+	targetSum: 18,
+}; //[[1, 2, 15],[1, 8, 9],[2, 7, 9],[3, 6, 9],[3, 7, 8],[4, 5, 9],[4, 6, 8],[5, 6, 7]]
 let threeSumTest9: IThreeSumInput = {
-    "threeSumArr": [1, 2, 3, 4, 5, 6, 7, 8, 9, 15],
-    "targetSum": 32
-}// [ [ 8, 9, 15 ] ]
+	threeSumArr: [1, 2, 3, 4, 5, 6, 7, 8, 9, 15],
+	targetSum: 32,
+}; // [ [ 8, 9, 15 ] ]
 let threeSumTest10: IThreeSumInput = {
-    "threeSumArr": [1, 2, 3, 4, 5, 6, 7, 8, 9, 15],
-    "targetSum": 33
-}//[]
+	threeSumArr: [1, 2, 3, 4, 5, 6, 7, 8, 9, 15],
+	targetSum: 33,
+}; //[]
 let threeSumTest11: IThreeSumInput = {
-    "threeSumArr": [1, 2, 3, 4, 5, 6, 7, 8, 9, 15],
-    "targetSum": 5
-}//[]
+	threeSumArr: [1, 2, 3, 4, 5, 6, 7, 8, 9, 15],
+	targetSum: 5,
+}; //[]
+let threeSumTest12: IThreeSumInput = {
+	threeSumArr: [0, 0, 0, 0],
+	targetSum: 0,
+}; //[]
 
-let {threeSumArr, targetSum} = threeSumTest1;
+let { threeSumArr, targetSum } = threeSumTest12;
 
-utils.timed('res', threeSum, [threeSumArr, targetSum])
+utils.timed('res', threeSum, [threeSumArr, targetSum]);

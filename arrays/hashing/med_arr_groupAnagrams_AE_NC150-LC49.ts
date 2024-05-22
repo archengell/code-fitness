@@ -16,23 +16,44 @@ import * as utils from '../../utils';
 
 /**
  * @name groupAnagrams - medium - AlgoExpert - NC150-LC49
- * @access https://leetcode.com/problems/group-anagrams/
+ * @access
+ * https://leetcode.com/problems/group-anagrams/
+ *
  * @param strs
  * @returns
  */
+// o-nlogn-time | o-n-space  > 92% w 109ms
 function groupAnagrams(strs: string[]): string[][] {
-	let anagraMap = new Map<string, string[]>();
-	let subGrp: string[];
-	let res: string[][];
+	let subGrp: string[] = [];
+	let subGrps = new Map<string, string[]>();
+
+	// o-n-time
 	for (let str of strs) {
-		let sortdStr: string = [...str].sort().join('');
-		subGrp = anagraMap.get(sortdStr) || [];
+		// sort anagram to determine match
+		// o-logn-time
+		let sortedStr = [...str].sort().join('');
+		// need to record the group each time or create new array
+		// o-1-time
+		subGrp = subGrps.get(sortedStr) || [];
+		// push anagram to sub array
+		// o-1-time | o-n-space
 		subGrp.push(str);
-		anagraMap.set(sortdStr, subGrp);
+		// set store with updated sub grp
+		// o-1-time
+		subGrps.set(sortedStr, subGrp);
 	}
-	res = Array.from(anagraMap.values());
-	console.log(res);
-	return res;
+	// o-n-time
+	return [...subGrps.values()];
+}
+
+// faster approach ~89ms => same time & space
+function groupAnagrams1(strs: string[]): string[][] {
+	const map = new Map();
+	for (let str of strs) {
+		let s = str.split('').sort().join('');
+		map.has(s) ? map.set(s, [...map.get(s), str]) : map.set(s, [str]);
+	}
+	return [...map.values()];
 }
 
 let grpAnagramTests: { [key: string]: string[] } = {
@@ -45,4 +66,6 @@ let grpAnagramTests: { [key: string]: string[] } = {
 	test7: ['yo', 'oy', 'zn'],
 };
 
-utils.timed('res', groupAnagrams, [grpAnagramTests['test6']]);
+const { test6 } = grpAnagramTests;
+
+utils.timed('res', groupAnagrams, [test6]);

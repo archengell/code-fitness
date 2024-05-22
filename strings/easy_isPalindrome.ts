@@ -72,11 +72,59 @@ function getAlphanumeric(str: string) {
 	return [...str.toLowerCase()].filter((item) => alphanumerals.includes(item));
 }
 
+// most recent sln: a bit cleaner than above, imo
+function isPalindrome2(s: string): boolean {
+	// reformat string to remove space and special characters
+	const alphanumeric = 'abcdefghijklmnopqrstuvwxyz0123456789';
+	// o-n-time | o-n-space
+	const str = [...s.toLowerCase()].filter((item) => alphanumeric.includes(item));
+	// two-pointer system
+	let left = 0;
+	let right = str.length - 1;
+	// o-n-time
+	while (left < right) {
+		if (str[left] !== str[right]) return false;
+		left++;
+		right--;
+	}
+	return true;
+}
+// best sln 38ms
+function isPalindrome3(s: string): boolean {
+	s = s.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+	if (s.length < 1) {
+		return true;
+	}
+	// ** constucting two pointer with for-loop **
+	for (let i = 0, p = s.length - 1; i < s.length; i++, p--) {
+		if (s[i] !== s[p]) {
+			return false;
+		}
+	}
+	return true;
+}
+// recursion approach
+// o-n-time | o-n-space
+function isPalindrome4(s: string): boolean {
+	s = s.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+	return _isPalindrome(0, s.length - 1, s);
+}
+function _isPalindrome(startIdx: number, endIdx: number, s: string) {
+	if (startIdx >= endIdx) {
+		return true;
+	} else if (s.charAt(startIdx) !== s.charAt(endIdx)) {
+		return false;
+	} else {
+		return _isPalindrome(startIdx + 1, endIdx - 1, s);
+	}
+}
+
 let test1: string = 'A man, a plan, a canal: Panama'; // true
 let test2: string = 'C  .CR GT"tqt"TG RC.66C'; // false
 let test3: string = 'abcdcba'; // true
 let test4 = 'Delia saw i was ailed'; //true
 let test5 = 'repaper'; // true
 let test6 = 'saippuakivikauppias'; // true
-console.log(isPalindrome_Leet(test2));
-console.log(isPalindrome_Pointer_Leet(test2));
+console.log(isPalindrome_Leet(test1));
+console.log(isPalindrome_Pointer_Leet(test1));
+console.log(isPalindrome4(test1));
