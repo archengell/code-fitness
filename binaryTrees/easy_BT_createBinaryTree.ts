@@ -12,7 +12,7 @@ export class TreeNode {
 	 * @param right
 	 */
 	constructor(value?: number | null, left?: TreeNode | null, right?: TreeNode | null) {
-		this.value = value ?? 0;
+		this.value = value ?? null;
 		this.left = left ?? null;
 		this.right = right ?? null;
 	}

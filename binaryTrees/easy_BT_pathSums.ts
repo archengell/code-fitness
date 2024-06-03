@@ -1,47 +1,5 @@
+import * as utils from '../utils';
 import { convertArrToBinaryTree, TreeNode } from './easy_BT_createBinaryTree';
-
-/** Branch Sums - easy */
-// time:  | space:
-
-function branchSums(tree: TreeNode): number[] {
-	//DFS - preorder traversal...
-	let nodes: number[] = [];
-	let sums: number[] = [];
-	let map = new Map<number, number[]>();
-
-	calcBranchSums(tree, 0, sums, nodes, map);
-	console.log(map);
-
-	return sums;
-}
-
-function calcBranchSums(
-	node: TreeNode,
-	sum: number,
-	sums: number[],
-	nodes: number[],
-	map: Map<number, number[]>
-) {
-	if (!node) return;
-
-	nodes.push(node.value);
-	let newSum: number = sum + node.value;
-
-	if (!node.right && !node.left) {
-		/**
-		 * incredibly important to use Obj.assign()
-		 * otherwise the last iteration of nodes
-		 * repeats for every map assignment.
-		 */
-		let each: any = Object.assign([], nodes);
-		sums.push(newSum);
-		map.set(newSum, each);
-	}
-
-	calcBranchSums(node.left, newSum, sums, nodes, map);
-	calcBranchSums(node.right, newSum, sums, nodes, map);
-	nodes.pop();
-}
 
 /**
  * @ref https://leetcode.com/problems/path-sum/description/
@@ -54,7 +12,7 @@ function calcBranchSums(
  * - 1. sums = []
  * - 2. res = false
  * - 3. !root return => termination clause
- * 	 4. set up preorder dfs
+ * 	 4. set up preorder dfs as subfunction
  * - - 4a. add to sum => sum += node.value if node is leaf
  * - - 4b. if sum === target res = true
  * - 5. return res
@@ -123,8 +81,17 @@ function hasPathSum3(root: TreeNode | null, targetSum: number): boolean {
 	return false;
 }
 
-let tree: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-// console.log(JSON.stringify(convertArrToBinaryTree(tree), null, 4));
-
-branchSums(convertArrToBinaryTree(tree));
+let tc = {
+	ex1: {
+		root: [5, 4, 8, 11, null, 13, 4, 7, 2, null, null, 5, 1],
+		targetSum: 22,
+	},
+	e2: {
+		root: [1, 2, 3],
+		targetSum: 5,
+	},
+	e3: {
+		root: [1, 2],
+		targetSum: 0,
+	},
+};
