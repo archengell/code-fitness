@@ -64,7 +64,7 @@ function rangeSumBST1(root: TreeNode | null, low: number, high: number): number 
 
 	let sum = 0;
 	while (queue.length > 0) {
-		const node = queue.pop();
+		const node = queue.shift();
 
 		if (node.left) queue.push(node.left);
 		if (node.right) queue.push(node.right);
@@ -90,11 +90,11 @@ function rangeSumBST2(root: TreeNode | null, low: number, high: number): number 
 	}
 
 	if (root.val > low) {
-		sum += rangeSumBST(root.left, low, high);
+		sum += rangeSumBST2(root.left, low, high);
 	}
 
 	if (root.val < high) {
-		sum += rangeSumBST(root.right, low, high);
+		sum += rangeSumBST2(root.right, low, high);
 	}
 
 	return sum;
@@ -111,5 +111,19 @@ function rangeSumBST3(root: TreeNode | null, low: number, high: number): number 
 		if (node.right) dfs(node.right);
 	};
 	dfs(root);
+	return sum;
+}
+// version without helper function...
+function rangeSumBST4(root: TreeNode | null, low: number, high: number): number {
+	let sum = 0;
+	if (!root) return sum;
+
+	if (root.val >= low && root.val <= high) {
+		sum += root.val;
+	}
+
+	sum += rangeSumBST4(root.left, low, high);
+	sum += rangeSumBST4(root.right, low, high);
+
 	return sum;
 }

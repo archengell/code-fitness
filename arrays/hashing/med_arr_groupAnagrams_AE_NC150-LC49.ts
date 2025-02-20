@@ -56,6 +56,18 @@ function groupAnagrams1(strs: string[]): string[][] {
 	return [...map.values()];
 }
 
+// usign obj in place of Map
+function groupAnagrams2(strs: string[]): string[][] {
+	let subGrp: string[] = [];
+	let grp: { [key: string]: string[] } = {};
+	for (let str of strs) {
+		let key = [...str].sort().join();
+		subGrp = grp.hasOwnProperty(key) ? grp[key] : [];
+		subGrp.push(str);
+		grp[key] = subGrp;
+	}
+	return Object.values(grp);
+}
 let grpAnagramTests: { [key: string]: string[] } = {
 	test1: ['eat', 'tea', 'tan', 'ate', 'nat', 'bat'],
 	test2: ['yo', 'act', 'flop', 'tac', 'foo', 'cat', 'oy', 'olfp'],

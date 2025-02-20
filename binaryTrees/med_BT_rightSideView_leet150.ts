@@ -15,6 +15,14 @@ import { TreeNode, convertArrToBinaryTree } from './easy_BT_createBinaryTree';
  *     5     4 -> 4
  * input: node = [1, 2, 3, null, 5, null, 4]
  * output: [1, 3, 4]
+ * @steps
+ * -- create termination clause !root
+ * -- create vars for: nodesAtLvl, nodes, lvl (to increment), rightSideView
+ * -- set up while(queue.length){}
+ * -- -- assign queue to nodes
+ * -- -- !! preorder traversal occurs IN the for loop
+ * -- push last node.val to rightSideView arr
+ * -- increase lvl
  * @param { TreeNode } node
  * @summary o(n) time + 0(d) space: d = diameter of BT ~ n/2 (balanced)
  * @returns {number[]}  array of the node values viewed from the right
@@ -40,6 +48,7 @@ function rightSideViewBFS(root: TreeNode | null): number[] {
 }
 
 // o-n-time (66ms > 59%) | o-n-space (52mb >33%)
+// incorporates level order
 function rightSideViewBFS_1(root: TreeNode | null): number[] {
 	// first edge case resolved
 	if (!root) return [];
@@ -62,6 +71,7 @@ function rightSideViewBFS_1(root: TreeNode | null): number[] {
 			node.left && queue.push(node.left);
 			node.right && queue.push(node.right);
 		}
+		// rightSideView.push(nodesAtLvl[lvl][numOfNodesAtLvl - 1]);
 		rightSideView.push(node.value);
 		lvl++;
 	}

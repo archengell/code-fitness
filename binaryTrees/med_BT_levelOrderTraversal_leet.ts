@@ -44,17 +44,16 @@ function lvlOrderTraversalByLvls_iter(root: TreeNode | null): number[][] {
 
 	if (!root) return levels;
 
-	let queue: TreeNode[] = [];
+	let queue: TreeNode[] = [root];
 	let node: TreeNode;
-
-	queue.push(root);
+	let nodes: TreeNode[] = [];
 
 	while (queue.length) {
 		levels[level] = [];
-		let levelLen: number = queue.length;
-		for (let i = 0; i < levelLen; i++) {
+		nodes = queue;
+		for (let i = 0; i < nodes.length; i++) {
 			node = queue.shift();
-			if (node.val !== null) levels[level].push(node.val);
+			node.val && levels[level].push(node.val);
 			//the descent happens here...
 			node.left && queue.push(node.left);
 			node.right && queue.push(node.right);

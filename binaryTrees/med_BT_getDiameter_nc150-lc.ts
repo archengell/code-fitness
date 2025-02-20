@@ -28,15 +28,15 @@ function binaryTreeDiameter(root: TreeNode | null): number {
 	 * @param root
 	 * @returns
 	 */
-	const getHeight = (root: TreeNode | null): number => {
+	const dfs = (root: TreeNode | null): number => {
 		if (!root) return 0;
-		let left: number = getHeight(root.left);
-		let right: number = getHeight(root.right);
+		let left: number = dfs(root.left);
+		let right: number = dfs(root.right);
 		diameter = Math.max(diameter, left + right);
 		// console.log(`node.value: ${root.value}, leftHt: ${left}, rightHt: ${right}, diameter: ${diameter}`)
 		return 1 + Math.max(left, right);
 	};
-	getHeight(root);
+	dfs(root);
 	return diameter;
 }
 

@@ -29,6 +29,29 @@ import * as utils from '../utils';
  * - The sortedFreqEntri<wbr>es array: O(n) where n is the number of unique elements in nums.
  * Therefore, the overall space complexity of the topKFrequent function is O(n)
  */
+
+// o-n time | o-n space
+function topKFrequentBest(nums, k) {
+	const count = {};
+	const freq = Array.from({ length: nums.length + 1 }, () => []);
+
+	for (const n of nums) {
+		count[n] = (count[n] || 0) + 1;
+	}
+	for (const n in count) {
+		freq[count[n]].push(parseInt(n));
+	}
+
+	const res = [];
+	for (let i = freq.length - 1; i > 0; i--) {
+		for (const n of freq[i]) {
+			res.push(n);
+			if (res.length === k) {
+				return res;
+			}
+		}
+	}
+}
 // o-nlogn-time >94%| o-n-space
 function topKFrequent(nums: number[], k: number): number[] {
 	let freqMap: { [key: string]: number } = {};
@@ -52,6 +75,23 @@ function topKFrequent(nums: number[], k: number): number[] {
 		count++;
 	}
 
+	return res;
+}
+// o-nlogn-time | o-n-space
+function topKFrequentMap(nums, k) {
+	// s - O
+	const store = new Map();
+	const res = [];
+	// t - On
+	for (let n = 0; n < nums.length; n++) {
+		store.set(nums[n], (store.get(nums[n]) || 0) + 1);
+	}
+	// t - Onlogn
+	let sort = [...store.entries()].sort((a, b) => b[1] - a[1]);
+	// t - On
+	sort.forEach((item, idx) => {
+		if (idx < k) res.push(item[0]);
+	});
 	return res;
 }
 

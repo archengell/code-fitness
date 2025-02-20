@@ -18,19 +18,61 @@ import { convertArrToBinaryTree, TreeNode } from './easy_BT_createBinaryTree';
 /**
  * @ref https://leetcode.com/problems/path-sum-ii/
  * @description
+ * Given the root of a binary tree and an integer targetSum, return all root-to-leaf
+ * paths where the sum of the node values in the path equals targetSum. Each path
+ * should be returned as a list of the node values, not node references.
+ *
+ * A root-to-leaf path is a path starting from the root and ending at any leaf node.
+ * A leaf is a node with no children.
  *
  * @summary
  * - perform sub dfs
  * - create temp branch array accruing vals
  * - sum vals in each traversal
- * - postorder & pop val
+ * - postorder & pop value
  * - if leaf, check if sum === target,
- * - - yes: push tempArr, with node val
+ * - - yes: push tempArr, with node value
  * - - no: return
  * @param root
  * @param targetSum
  * @returns
  */
+
+function pathSum2_latest(root: TreeNode | null, targetSum: number): number[][] {
+	let res: number[][] = [];
+	let nodePath: number[] = [];
+	let sum: number = 0;
+	return dfs(root, targetSum, sum, nodePath, res) || [];
+}
+
+function dfs(
+	node: TreeNode | null,
+	targetSum: number,
+	sum: number,
+	nodePath: number[],
+	res: number[][]
+): number[][] {
+	if (!node) return;
+
+	// populate node path in arr...
+	nodePath.push(node.value);
+	// aggregation...
+	sum += node.value;
+
+	// typ dfs traversal, pop() is critical to retract node path arr!
+	node.left && dfs(node.left, targetSum, sum, nodePath, res);
+	node.right && dfs(node.right, targetSum, sum, nodePath, res);
+	nodePath.pop();
+
+	// logic when node is leaf = critical!
+	if (!node.left && !node.right) {
+		if (sum === targetSum) {
+			res.push([...nodePath, node.value]);
+		}
+		if (sum > targetSum) return;
+	}
+	return res;
+}
 
 // o-n-time >74% | o-n-space >70%
 function pathSumII(root: TreeNode | null, targetSum: number): number[][] {
@@ -66,6 +108,7 @@ function pathSumII(root: TreeNode | null, targetSum: number): number[][] {
 		}
 	}
 	dfs(root, 0, targetSum);
+	console.log(res);
 	return res;
 }
 
@@ -89,3 +132,7 @@ let tc = {
 		targetSum: 0,
 	},
 };
+
+const { root, targetSum } = tc['ex1'];
+
+pathSumII(convertArrToBinaryTree(root), targetSum);

@@ -13,13 +13,22 @@ interface IRes {
  * @param string
  * @returns {number || string} depends
  * @summary
- *  1. init resArr w/ [0,1], resObj, startIdx, subStrLen
- *  2. loop thru str
- *  3. if duplication detected, reset startIdx to next unique char position
- *  4. store str length to map
- *  5. update subStrLen < i+1-startIdx, update resArr w/ [startIdx, i+1]
- *  6. extract subStr => str.splice(resArr[0], resArr[1])
  */
+
+function lengthOfLongestSubstring(s: string): number {
+	let cache = new Set<string>();
+	let max = 0;
+	for (let l = 0, r = 0; r < s.length; r++) {
+		while (cache.has(s[r])) {
+			cache.delete(s[l]);
+			l++;
+		}
+		cache.add(s[r]);
+		max = Math.max(max, r - l + 1);
+	}
+	return max;
+}
+
 function getMaxLengthAndSubstringWithoutDups(string: string): IRes {
 	let resStartIdx = 0;
 	let resEndIdx = 1;

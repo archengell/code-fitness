@@ -23,6 +23,20 @@ function containsDuplicate(nums: number[]): boolean {
 	return Object.values(dict).includes(2);
 }
 
+function containsDuplicate2(nums: number[]): boolean {
+	const cache = new Map<number, number>();
+	// On t/s
+	for (let i = 0; i < nums.length; i++) {
+		let freq = (cache.get(nums[i]) || 0) + 1;
+		cache.set(nums[i], freq);
+	}
+	// On t
+	for (let [num, freq] of cache) {
+		if (freq >= 2) return true;
+	}
+	return false;
+}
+
 let containsDuplicateTest1: number[] = [1, 2, 3, 1]; //true
 let containsDuplicateTest2: number[] = [1, 2, 3, 4]; // false
 let containsDuplicateTest3: number[] = [1, 1, 1, 3, 3, 4, 3, 2, 4, 2]; // true

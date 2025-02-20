@@ -4,7 +4,7 @@ enum Direction {
 	East = 'EAST', // RIGHT
 	West = 'WEST', // LEFT
 }
-
+// example and derivation of monotonic stack operation
 function sunsetViews(buildings: number[], direction: string) {
 	console.log(`${buildings}  ${direction}`);
 	let bldgStack: number[] = [];

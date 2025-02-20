@@ -30,7 +30,7 @@ function maxDepth(root) {
 }
 
 // iteration
-function maxDepthIter(root: TreeNode, lvl: number = 0) {
+function maxDepthIterBFS(root: TreeNode, lvl: number = 0) {
 	if (!root) return;
 	let queue = [root];
 	let node: TreeNode;

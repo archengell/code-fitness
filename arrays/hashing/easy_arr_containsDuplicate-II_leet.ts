@@ -21,6 +21,15 @@ function containsDuplicateII(nums: number[], k: number): boolean {
 	return false;
 }
 
+function containsNearbyDuplicate(nums: number[], k: number): boolean {
+	let store = new Map<number, number>();
+	for (let i = 0; i < nums.length; i++) {
+		if (store.has(nums[i]) && Math.abs(store.get(nums[i]) - i) <= k) return true;
+		store.set(nums[i], i);
+	}
+	return false;
+}
+
 const ex1 = {
 	input: [1, 2, 3, 1],
 	k: 3, // 0-3 = 3 true

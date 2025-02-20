@@ -18,32 +18,47 @@ import * as utils from '../../utils';
  * here: https://leetcode.com/problems/container-with-most-water/solutions/5088170/video-two-pointer-solution/
  * and yt video here: https://www.youtube.com/watch?v=-nvQm6f84Yg&t=8s
  * steps
- * - Set left / right pointer, using the min height as base
- * - if left height is less than right, increase left
- * - if right height is less then or equal to left decrease right
- * - each iteration record area, keeping the max
- *
+ * - use two pointer approach
+ * - set maxArea = 0 ( will be overridden)
+ * - est minHit btwn two pointer heights
+ * - calculate area, update, and store max
+ * - incrementally move boundaries inward as long as left < right
+ * - return maxArea
  * @param height
  */
-function maxArea(heights: number[]): number {
-	let left = 0;
-	let right = heights.length - 1;
 
-	let res = 0;
+function maxArea(height: number[]): number {
+	let l = 0;
+	let r = height.length - 1;
+	let area = 0;
 
-	while (left < right) {
-		let maxHt = Math.min(heights[left], heights[right]);
-		let currWidth = Math.abs(left - right);
-		res = Math.max(res, maxHt * currWidth);
-		if (heights[left] > heights[right]) {
-			right--;
-		} else if (heights[left] < heights[right]) {
-			left++;
+	while (l < r) {
+		area = Math.max(Math.min(height[r], height[l]) * (r - l), area);
+		if (height[l] > height[r]) {
+			r--;
 		} else {
-			right--;
+			l++;
 		}
 	}
-	return res;
+	return area;
+}
+function maxArea2(height: number[]): number {
+	// two pointer approach
+	let left = 0;
+	let right = height.length - 1;
+	// establish min maxArea that's certain to be overridden
+	let maxArea = 0;
+	while (left < right) {
+		// establish minHt as height param bc slanting is not permitted
+		let minHt = Math.min(height[left], height[right]);
+		// calculate area, update, and store maxArea
+		maxArea = Math.max(maxArea, (right - left) * minHt);
+		// incrementally move the boundaries inward maintain highest height min possible
+		if (height[left] > height[right]) {
+			right--;
+		} else left++;
+	}
+	return maxArea;
 }
 
 const ex1 = {
@@ -56,3 +71,14 @@ const ex2 = {
 const { heights } = ex1;
 
 utils.timed('res', maxArea, [heights]);
+
+function pro(input: number[]) {
+	let res = [];
+	for (let i = 0; i < input.length; i++) {
+		let prod = 1;
+		for (let j = 0; j < input.length; j++) {
+			if (j !== i) prod *= input[j];
+		}
+		res.push(prod);
+	}
+}

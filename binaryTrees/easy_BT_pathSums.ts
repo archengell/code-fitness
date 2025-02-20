@@ -20,6 +20,21 @@ import { convertArrToBinaryTree, TreeNode } from './easy_BT_createBinaryTree';
  * @param targetSum
  * @returns
  */
+
+function hasPathSumLatest(root: TreeNode | null, targetSum: number, sum: number = 0): boolean {
+	if (!root) return false;
+
+	sum += root.value;
+
+	if (!root.left && !root.right) {
+		return sum === targetSum;
+	}
+
+	return (
+		hasPathSumLatest(root.left, targetSum, sum) || hasPathSumLatest(root.right, targetSum, sum)
+	);
+}
+
 // o-n-time >46%
 function hasPathSum(root: TreeNode | null, targetSum: number): boolean {
 	const sums: number[] = [];

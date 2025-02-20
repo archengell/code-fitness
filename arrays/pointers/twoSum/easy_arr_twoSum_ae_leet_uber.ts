@@ -1,4 +1,4 @@
-import * as utils from '../../utils';
+import * as utils from '../../../utils';
 
 /**
  * @name easy - array - two num sum - algoexpert, leetcode
@@ -90,16 +90,12 @@ function twoNumSum_fastest_obj(nums: number[], target: number) {
 // Approach: One-pass Hash Table w/ MAP
 function twoNumSum_fastest_map(nums: number[], target: number) {
 	// create cache
-	let map = new Map<number, number>();
+	let cache = new Map<number, number>();
 	// loop thru nums array
 	for (let i = 0; i < nums.length; i++) {
-		let diff: number = target - nums[i];
-		if (map.has(nums[i])) {
-			return [nums[i], nums[map.get(nums[i])]];
-		}
-		// store diff w/ i (placeholder)
-		// can't use set(), doesn't have map.get()
-		map.set(diff, i);
+		let diff = target - nums[i];
+		if (cache.has(diff)) return [i, cache.get(diff)];
+		cache.set(nums[i], i);
 	}
 }
 

@@ -8,7 +8,10 @@ import * as utils from '../../utils';
  *
  * Note that you must do this in-place without making a copy of the array.
  * @summary
- *
+ * - almost identical to remove duplicates from sorting array in 0-1-space
+ * - set pointer
+ * - increase pointer when nums[i] !== target ( this case it's 0)
+ * - return mutated arr
  * @param nums
  */
 // initial solution based off of another meta problem: top K elements

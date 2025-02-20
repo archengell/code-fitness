@@ -45,7 +45,7 @@ function twoSum2(numbers: number[], target: number): number[] {
 	// added +1 bc it states a 1-indexed array of integers!
 }
 
-let twoSum2Test1: twoSum2 = {
+let twoSum2Test1: twoSum2 = {https://go.dev/doc/telemetry
 	numbers: [2, 7, 11, 15],
 	target1: 9,
 };

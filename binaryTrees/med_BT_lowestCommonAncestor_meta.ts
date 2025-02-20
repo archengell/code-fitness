@@ -2,7 +2,8 @@ import * as utils from '../utils';
 import { TreeNode, convertArrToBinaryTree } from './easy_BT_createBinaryTree';
 
 /**
- * @ref https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+ * @leetlink https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+ * @neet_link https://neetcode.io/problems/lowest-common-ancestor-in-binary-search-tree
  * @description
  * Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
  *
@@ -23,13 +24,25 @@ function lowestCommonAncestorDFS(
 	q: TreeNode | null
 ): TreeNode | null {
 	if (root === null) return null;
-
+	// post-order traversal
 	const leftHasPQ = root.left && lowestCommonAncestorDFS(root.left, p, q);
 	const rightHasPQ = root.right && lowestCommonAncestorDFS(root.right, p, q);
-
+	// critical logic!
 	if ((leftHasPQ && rightHasPQ) || root.value === p.value || root.value === q.value) return root;
 
 	return leftHasPQ || rightHasPQ;
+}
+// latest, cleanest, and easiet to understand, BUT doesn't work in LEETCODE for basic cases
+function lowestCommonAncestorDfsLatest(
+	root: TreeNode | null,
+	p: TreeNode | null,
+	q: TreeNode | null
+): TreeNode | null {
+	if (!root || !p || !q) return;
+
+	if (Math.max(p.value, q.value) < root.value) return this.lowestCommonAncestor(root.left, p, q);
+	if (Math.min(p.value, q.value) > root.value) return this.lowestCommonAncestor(root.right, p, q);
+	return root;
 }
 
 // o-n-time 84ms >19% (ng) | o-n-space

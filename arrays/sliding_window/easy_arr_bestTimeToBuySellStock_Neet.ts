@@ -58,6 +58,16 @@ function maxProfit2(prices: number[]): maxProfitResult {
 	};
 }
 
+function maxProject3(prices: number[]): number {
+	let min = Infinity;
+	let max = 0;
+	for (const price of prices) {
+		min = Math.min(min, price);
+		max = Math.max(max, price - min);
+	}
+	return max;
+}
+
 let maxProfitTest1: number[] = [7, 1, 5, 3, 6, 4]; // 5
 let maxProfitTest2: number[] = [7, 6, 4, 3, 1]; // 0
 let maxProfitTest3: number[] = [3, 2, 1]; // 0
